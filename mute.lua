@@ -130,7 +130,7 @@ local function Execute()
   
   print(JSONCode)
   
-  local JSON = game:GetService("HttpSevice"):JSONEncode(table.insert(Data,MuteData))
+  local JSON = game:GetService("HttpService"):JSONEncode(table.insert(Data,MuteData))
   writefile("data.JSON", JSON)
   Refresh()
 end
