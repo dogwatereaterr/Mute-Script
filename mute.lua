@@ -140,7 +140,7 @@ local function Execute()
   end
 
   
-  local JSONCode = HttpSevice:JSONEncode(MuteData)
+  local JSONCode = HttpSevice.JSONEncode(MuteData)
   
   print(JSONCode)
   
