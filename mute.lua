@@ -1,10 +1,5 @@
 local Player1 = game.Players.LocalPlayer
 local PlayerService = game:GetService("Players")
-local HttpService = game:GetService("HttpService")
-
-if not HttpService then
-    error("HttpService is not available!")
-end
 
 --local Data = HttpService:JSONDecode(readfile("Data.JSON"))
 local Data = {}
@@ -123,22 +118,20 @@ local function Execute()
   print(Name .. " " .. ID .. " " .. Length .. " " .. Timestamp .. " " .. Reason1)
   game.ReplicatedStorage.Remotes.Messenger:FireServer("/cmd mute " .. ID .. " " .. Length)
   
-  local MuteData = [[
-    "{
-      ["PlayerName"] = tostring(Name),
-      ["PlayerID"] = tostring(ID),
-      ["Time"] = tostring(Length),
-      ["Date"] = tostring(Timestamp),
-      ["Reason"] = tostring(Reason1)
-    }"
-  ]]
+  local MuteData = {
+      PlayerName = tostring(Name),
+      PlayerID = tostring(ID),
+      Time = tostring(Length),
+      Date = tostring(Timestamp),
+      Reason = tostring(Reason1)
+    }
   
-  local JSONCode = HttpSevice:JSONEncode(MuteData)
+  local JSONCode = game:GetService("HttpService"):JSONEncode(MuteData)
   
   print(JSONCode)
   
-  table.insert(Data,MuteData)
-  writefile("data.JSON", JSONCode)
+  local JSON = game:GetService("HttpSevice"):JSONEncode(table.insert(Data,MuteData))
+  writefile("data.JSON", JSON)
   Refresh()
 end
 
