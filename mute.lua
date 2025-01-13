@@ -2,7 +2,6 @@ local Player1 = game.Players.LocalPlayer
 local PlayerService = game:GetService("Players")
 local HttpService = game:GetService("HttpService")
 
-local HttpService = game:GetService("HttpService")
 if not HttpService then
     error("HttpService is not available!")
 end
