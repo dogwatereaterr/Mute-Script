@@ -123,24 +123,17 @@ local function Execute()
   print(Name .. " " .. ID .. " " .. Length .. " " .. Timestamp .. " " .. Reason1)
   game.ReplicatedStorage.Remotes.Messenger:FireServer("/cmd mute " .. ID .. " " .. Length)
   
-  local MuteData = {
-    ["PlayerName"] = tostring(Name),
-    ["PlayerID"] = tostring(ID),
-    ["Time"] = tostring(Length),
-    ["Date"] = tostring(Timestamp),
-    ["Reason"] = tostring(Reason1)
-  }
+  local MuteData = [[
+    "{
+      ["PlayerName"] = tostring(Name),
+      ["PlayerID"] = tostring(ID),
+      ["Time"] = tostring(Length),
+      ["Date"] = tostring(Timestamp),
+      ["Reason"] = tostring(Reason1)
+    }"
+  ]]
   
-  for key, value in pairs(MuteData) do
-    if value == nil then
-        warn("Key '" .. key .. "' is nil!")
-    else
-        print("Key:", key, "Value:", value, "Type:", typeof(value))
-    end
-  end
-
-  
-  local JSONCode = HttpSevice.JSONEncode(MuteData)
+  local JSONCode = HttpSevice:JSONEncode(MuteData)
   
   print(JSONCode)
   
