@@ -4,6 +4,12 @@ local PlayerService = game:GetService("Players")
 --local Data = HttpService:JSONDecode(readfile("Data.JSON"))
 local Data = {}
 
+local maxIndex = 0
+for i in pairs(Data) do
+  maxIndex = i
+  print(maxIndex)
+end
+
 local UI_Holder = Instance.new("ScreenGui", Player1.PlayerGui)
 UI_Holder.Name = "Mut3r"
 
@@ -130,7 +136,9 @@ local function Execute()
   
   print(JSONCode)
   
-  local JSON = game:GetService("HttpService"):JSONEncode(table.insert(Data, 1, MuteData))
+  Data[tostring(maxIndex+1)] = MuteData
+  print(game:GetService("HttpService"):JSONEncode(Data))
+  local JSON = game:GetService("HttpService"):JSONEncode(Data)
   writefile("data.JSON", JSON)
   Refresh()
 end
