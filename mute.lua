@@ -86,7 +86,6 @@ local ListLayout = Instance.new("UIListLayout", HistoryScroll)
 ListLayout.FillDirection = 1
 ListLayout.Padding = UDim.new(0.01, 0)
 
-
 local Escape = Instance.new("TextButton", UI_Holder)
 Escape.Name = "Exit"
 Escape.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
@@ -108,8 +107,7 @@ UISwap.Position = UDim2.new(0.3, 0, 0.16, 0)
 UISwap.RichText = true
 UISwap.Text = "History"
 UISwap.TextScaled = true
-UISwap.TextColor3 = Color3.fromRGB(200, 200, 46)
-local Index = 0
+UISwap.TextColor3 = Color3.fromRGB(200, 200, 200)
 local Corner5 = Instance.new("UICorner", UISwap)
 Corner5.CornerRadius = UDim.new(0.2,3)
 
@@ -123,9 +121,6 @@ function Refresh()
     Holder.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
     local Corner = Instance.new("UICorner", Holder)
     Corner.CornerRadius = UDim.new(0.3, 0)
-    local ListLayout = Instance.new("UIListLayout", HistoryScroll)
-    ListLayout.FillDirection = 0
-    ListLayout.Padding = UDim.new(0.1, 0)
     
     local DataBox = Instance.new("TextBox", Holder)
     DataBox.Size = UDim2.new(1, 0, 0.45, 0)
@@ -179,7 +174,6 @@ local function HideUI()
     Escape.Text = "<b>+</b>"
     UISwap.Text = "History"
     UISwap.Visible = false
-    Index = 0
   else
     Visibility = true
     MainUI.Visible = true
@@ -196,7 +190,6 @@ local function ChangeUI()
   if not MainUI.Visible then
     UISwap.Text = "Mute"
   end
-  
 end
 
 Refresh()
