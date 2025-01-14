@@ -147,7 +147,7 @@ local function Execute()
   game.ReplicatedStorage.Remotes.Messenger:FireServer("/cmd mute " .. ID .. " " .. Length)
 
   if math.floor(Length/3600) >= 1 then
-    LengthString = tostring(math.floor(Length/3600)) .. "h " .. tostring(math.floor(Length/60) - 60*math.floor(Length/3600)) .. "m " .. tostring(Length - (60*math.floor(Length/60) - 3600*math.floor(Length/3600))) .. "s"
+    LengthString = tostring(math.floor(Length/3600)) .. "h " .. (tostring(math.floor(Length/60) - 60*math.floor(Length/3600))) .. "m " .. tostring(Length - (60*math.floor(Length/60) - 3600*math.floor(Length/3600))) .. "s"
   else
     LengthString = tostring(math.floor(Length/60)) .. "m " .. tostring(Length - 60*math.floor(Length/60))
   end
@@ -155,7 +155,7 @@ local function Execute()
   local MuteData = {
       PlayerName = tostring(Name),
       PlayerID = tostring(ID),
-      Time = tostring(Length),
+      Time = LengthString,
       Date = tostring(Timestamp),
       Reason = tostring(Reason1)
     }
