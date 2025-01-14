@@ -139,12 +139,18 @@ end
 local function Execute()
   local Name = NameEntry.Text
   local ID = tostring(PlayerService:GetUserIdFromNameAsync(Name))
-  local Length = tostring(TimeEntry.Text)
+  local Length = tonumber(TimeEntry.Text)
   local Timestamp = os.date("%c")
   local Reason1 = ReasonEntry.Text
   
   print(Name .. " " .. ID .. " " .. Length .. " " .. Timestamp .. " " .. Reason1)
   game.ReplicatedStorage.Remotes.Messenger:FireServer("/cmd mute " .. ID .. " " .. Length)
+
+  if math.floor(Length/3600) >= 1 then
+    LengthString = tostring(math.floor(Length/3600)) .. "h " .. tostring(math.floor(Length/60) - 60*math.floor(Length/3600)) .. "m " .. tostring(Length - (60*math.floor(Length/60) - 3600*math.floor(Length/3600))) .. "s"
+  else
+    LengthString = tostring(math.floor(Length/60)) .. "m " .. tostring(Length - 60*math.floor(Length/60))
+  end
   
   local MuteData = {
       PlayerName = tostring(Name),
