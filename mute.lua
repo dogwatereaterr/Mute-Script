@@ -198,6 +198,7 @@ local function ChangeUI()
   
 end
 
+Refresh()
 UISwap.Activated:Connect(ChangeUI)
 Confirm.Activated:Connect(Execute)
 Escape.Activated:Connect(HideUI)
