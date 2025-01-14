@@ -132,7 +132,8 @@ function Refresh()
     DataBox.TextScaled = true
     DataBox.RichText = true
     DataBox.BackgroundTransparency = 1
-    DataBox.TextColor3 = Color3.fromRGB(20, 20, 20)
+    DataBox.TextEditable = false
+    DataBox.TextColor3 = Color3.fromRGB(150, 150, 150)
     print(game:GetService("HttpService"):JSONEncode(PlayerMuteData))
     DataBox.Text = "Player: " ..PlayerMuteData["PlayerName"] .. "(" .. PlayerMuteData["PlayerID"] .. ")\nDate: " .. PlayerMuteData["Date"] .. "\nLength: " .. PlayerMuteData["Time"] .. "\nReason: " .. PlayerMuteData["Reason"]
     
