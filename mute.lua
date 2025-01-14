@@ -131,7 +131,7 @@ function Refresh()
     DataBox.RichText = true
     DataBox.Transparency = 1
     DataBox.TextColor3 = Color3.fromRGB(20, 20, 20)
-    DataBox.Text = "Player: " ..PlayerMuteData["PlayerName"] .. "(" .. PlayerMuteData["PlayerID"] .. ")\nDate: " .. PlayerMuteData["Date"] .. "\nLength: " .. PlayerMuteDate["Time"] .. "\nReason: " .. PlayerMuteData["Reason"]
+    DataBox.Text = "Player: " ..PlayerMuteData[tostring(i)]["PlayerName"] .. "(" .. PlayerMuteData[tostring(i)]["PlayerID"] .. ")\nDate: " .. PlayerMuteData[tostring(i)]["Date"] .. "\nLength: " .. PlayerMuteDate[tostring(i)]["Time"] .. "\nReason: " .. PlayerMuteData[tostring(i)]["Reason"]
     
   end
 end
