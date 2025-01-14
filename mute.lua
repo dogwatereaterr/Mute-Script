@@ -133,7 +133,7 @@ function Refresh()
     DataBox.Text = "Player: " ..PlayerMuteData["PlayerName"] .. "(" .. PlayerMuteData["PlayerID"] .. ")\nDate: " .. PlayerMuteData["Date"] .. "\nLength: " .. PlayerMuteData["Time"] .. "\nReason: " .. PlayerMuteData["Reason"]
     
   end
-  ScrollingFrame.CanvasSize = ListLayout.AbsoluteContentSize
+  HistoryScroll.CanvasSize = ListLayout.AbsoluteContentSize
 end
 
 
