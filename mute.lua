@@ -130,7 +130,7 @@ function Refresh()
     DataBox.BackgroundTransparency = 1
     DataBox.TextColor3 = Color3.fromRGB(150, 150, 150)
     DataBox.Text = "Player: " ..PlayerMuteData["PlayerName"] .. "(" .. PlayerMuteData["PlayerID"] .. ")\nDate: " .. PlayerMuteData["Date"] .. "\nLength: " .. PlayerMuteData["Time"] .. "\nReason: " .. PlayerMuteData["Reason"]
-    HistoryScroll.AutomaticSize = 3
+    HistoryScroll.AutomaticCanvasSize = 3
   end
 end
 
