@@ -1,8 +1,7 @@
 local Player1 = game.Players.LocalPlayer
 local PlayerService = game:GetService("Players")
 
---local Data = HttpService:JSONDecode(readfile("Data.JSON"))
-local Data = {}
+local Data = game:GetService("HttpService"):JSONDecode(readfile("Data.JSON"))
 
 local maxIndex = 0
 for i in pairs(Data) do
@@ -82,8 +81,10 @@ local HistoryScroll = Instance.new("ScrollingFrame", MuteHistory)
 HistoryScroll.Size = UDim2.new(0.82, 0, 0.85, 0)
 HistoryScroll.Position = UDim2.new(0.1, 0, 0.12, 0)
 HistoryScroll.Transparency = 1
+HistoryScroll.ScrollingDirection = 1
 local ListLayout = Instance.new("UIListLayout", HistoryScroll)
 ListLayout.FillDirection = 1
+ListLayout.Padding = UDim.new(0.01, 0)
 
 
 local Escape = Instance.new("TextButton", UI_Holder)
@@ -101,13 +102,13 @@ Corner5.CornerRadius = UDim.new(0.2,3)
 
 local UISwap = Instance.new("TextButton", UI_Holder)
 UISwap.Name = "Swap"
-UISwap.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-UISwap.Size = UDim2.new(0.08, 0, 0.086, 0)
-UISwap.Position = UDim2.new(0.3, 0, 0.2, 0)
+UISwap.BackgroundColor3 = Color3.fromRGB(41, 42, 46)
+UISwap.Size = UDim2.new(0.08, 0, 0.08, 0)
+UISwap.Position = UDim2.new(0.3, 0, 0.16, 0)
 UISwap.RichText = true
 UISwap.Text = "History"
 UISwap.TextScaled = true
-UISwap.TextColor3 = Color3.fromRGB(41, 42, 46)
+UISwap.TextColor3 = Color3.fromRGB(200, 200, 46)
 local Index = 0
 local Corner5 = Instance.new("UICorner", UISwap)
 Corner5.CornerRadius = UDim.new(0.2,3)
