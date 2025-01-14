@@ -82,9 +82,6 @@ HistoryScroll.Size = UDim2.new(0.82, 0, 0.85, 0)
 HistoryScroll.Position = UDim2.new(0.1, 0, 0.12, 0)
 HistoryScroll.Transparency = 1
 HistoryScroll.ScrollingDirection = 2
-local ListLayout = Instance.new("UIListLayout", HistoryScroll)
-ListLayout.FillDirection = 1
-ListLayout.Padding = UDim.new(0.01, 0)
 
 local Escape = Instance.new("TextButton", UI_Holder)
 Escape.Name = "Exit"
@@ -115,6 +112,10 @@ local Visibility = true
 
 function Refresh()
   HistoryScroll:ClearAllChildren()
+  local ListLayout = Instance.new("UIListLayout")
+  ListLayout.Parent = HistoryScroll
+  ListLayout.FillDirection = 1
+  ListLayout.Padding = UDim.new(0.01, 0)
   for _,PlayerMuteData in Data do
     local Holder = Instance.new("Frame", HistoryScroll)
     Holder.Size = UDim2.new(0.9, 0, 0.2, 0)
@@ -122,12 +123,11 @@ function Refresh()
     local Corner = Instance.new("UICorner", Holder)
     Corner.CornerRadius = UDim.new(0.3, 0)
     
-    local DataBox = Instance.new("TextBox", Holder)
+    local DataBox = Instance.new("TextLabel", Holder)
     DataBox.Size = UDim2.new(1, 0, 0.45, 0)
     DataBox.TextScaled = true
     DataBox.RichText = true
     DataBox.BackgroundTransparency = 1
-    DataBox.TextEditable = false
     DataBox.TextColor3 = Color3.fromRGB(150, 150, 150)
     print(game:GetService("HttpService"):JSONEncode(PlayerMuteData))
     DataBox.Text = "Player: " ..PlayerMuteData["PlayerName"] .. "(" .. PlayerMuteData["PlayerID"] .. ")\nDate: " .. PlayerMuteData["Date"] .. "\nLength: " .. PlayerMuteData["Time"] .. "\nReason: " .. PlayerMuteData["Reason"]
