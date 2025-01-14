@@ -181,6 +181,7 @@ local function HideUI()
   else
     Visibility = true
     MainUI.Visible = true
+    MuteHistory.Visible = false
     Escape.Text = "<b>-</b>"
     UISwap.Visible = true
   end
