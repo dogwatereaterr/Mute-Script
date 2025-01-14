@@ -79,8 +79,8 @@ local Corner1 = Instance.new("UICorner", MuteHistory)
 Corner1.CornerRadius = UDim.new(0.1,2)
 
 local HistoryScroll = Instance.new("ScrollingFrame", MuteHistory)
-HistoryScroll.Size = UDim2.new(0.8, 0, 0.9, 0)
-HistoryScroll.Position = UDim2.new(0.1, 0, 0.15, 0)
+HistoryScroll.Size = UDim2.new(0.82, 0, 0.85, 0)
+HistoryScroll.Position = UDim2.new(0.1, 0, 0.12, 0)
 HistoryScroll.Transparency = 1
 local ListLayout = Instance.new("UIListLayout", HistoryScroll)
 ListLayout.FillDirection = 1
@@ -103,11 +103,11 @@ local UISwap = Instance.new("TextButton", UI_Holder)
 UISwap.Name = "Swap"
 UISwap.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 UISwap.Size = UDim2.new(0.08, 0, 0.086, 0)
-UISwap.Position = UDim2.new(0.3, 0, 0.18, 0)
+UISwap.Position = UDim2.new(0.3, 0, 0.2, 0)
 UISwap.RichText = true
 UISwap.Text = "History"
 UISwap.TextScaled = true
-UISwap.TextColor3 = Color3.fromRGB(200, 200, 200)
+UISwap.TextColor3 = Color3.fromRGB(41, 42, 46)
 local Index = 0
 local Corner5 = Instance.new("UICorner", UISwap)
 Corner5.CornerRadius = UDim.new(0.2,3)
@@ -118,10 +118,10 @@ function Refresh()
   HistoryScroll:ClearAllChildren()
   for _,PlayerMuteData in Data do
     local Holder = Instance.new("Frame", HistoryScroll)
-    Holder.Size = UDim2.new(0.9, 0, 0.4, 0)
+    Holder.Size = UDim2.new(0.9, 0, 0.2, 0)
     Holder.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
     local Corner = Instance.new("UICorner", Holder)
-    Corner.CornerRadius = UDim.new(1, 1.5)
+    Corner.CornerRadius = UDim.new(0.3, 0)
     local ListLayout = Instance.new("UIListLayout", HistoryScroll)
     ListLayout.FillDirection = 0
     ListLayout.Padding = UDim.new(0.1, 0)
@@ -130,7 +130,7 @@ function Refresh()
     DataBox.Size = UDim2.new(1, 0, 0.45, 0)
     DataBox.TextScaled = true
     DataBox.RichText = true
-    DataBox.Transparency = 1
+    DataBox.BackgroundTransparency = 1
     DataBox.TextColor3 = Color3.fromRGB(20, 20, 20)
     print(game:GetService("HttpService"):JSONEncode(PlayerMuteData))
     DataBox.Text = "Player: " ..PlayerMuteData["PlayerName"] .. "(" .. PlayerMuteData["PlayerID"] .. ")\nDate: " .. PlayerMuteData["Date"] .. "\nLength: " .. PlayerMuteData["Time"] .. "\nReason: " .. PlayerMuteData["Reason"]
@@ -162,6 +162,7 @@ local function Execute()
   print(JSONCode)
   
   Data[tostring(maxIndex+1)] = MuteData
+  maxIndex += 1
   print(game:GetService("HttpService"):JSONEncode(Data))
   local JSON = game:GetService("HttpService"):JSONEncode(Data)
   writefile("data.JSON", JSON)
