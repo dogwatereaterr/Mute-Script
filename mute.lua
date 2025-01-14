@@ -119,7 +119,7 @@ function Refresh()
     local Holder = Instance.new("Frame", HistoryScroll)
     Holder.Size = UDim2.new(0.9, 0, 0.4, 0)
     Holder.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
-    local Corner = Instance.New("UICorner", Holder)
+    local Corner = Instance.new("UICorner", Holder)
     Corner.CornerRadius = UDim.new(1, 1.5)
     local ListLayout = Instance.new("UIListLayout", HistoryScroll)
     ListLayout.FillDirection = 0
@@ -129,6 +129,7 @@ function Refresh()
     DataBox.Size = UDim2.new(0.9, 0, 0.9, 0)
     DataBox.TextScaled = true
     DataBox.RichText = true
+    DataBox.Transparency = 1
     DataBox.TextColor3 = Color3.fromRGB(20, 20, 20)
     DataBox.Text = "Player: " ..PlayerMuteData["PlayerName"] .. "(" .. PlayerMuteData["PlayerID"] .. ")\nDate: " .. PlayerMuteData["Date"] .. "\nLength: " .. PlayerMuteDate["Time"] .. "\nReason: " .. PlayerMuteData["Reason"]
     
