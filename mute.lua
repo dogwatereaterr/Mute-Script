@@ -131,9 +131,8 @@ function Refresh()
     DataBox.TextColor3 = Color3.fromRGB(150, 150, 150)
     print(game:GetService("HttpService"):JSONEncode(PlayerMuteData))
     DataBox.Text = "Player: " ..PlayerMuteData["PlayerName"] .. "(" .. PlayerMuteData["PlayerID"] .. ")\nDate: " .. PlayerMuteData["Date"] .. "\nLength: " .. PlayerMuteData["Time"] .. "\nReason: " .. PlayerMuteData["Reason"]
-    
+    HistoryScroll.AutomaticSize = 3
   end
-  HistoryScroll.CanvasSize = ListLayout.AbsoluteContentSize
 end
 
 
