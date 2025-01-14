@@ -129,7 +129,6 @@ function Refresh()
     DataBox.RichText = true
     DataBox.BackgroundTransparency = 1
     DataBox.TextColor3 = Color3.fromRGB(150, 150, 150)
-    print(game:GetService("HttpService"):JSONEncode(PlayerMuteData))
     DataBox.Text = "Player: " ..PlayerMuteData["PlayerName"] .. "(" .. PlayerMuteData["PlayerID"] .. ")\nDate: " .. PlayerMuteData["Date"] .. "\nLength: " .. PlayerMuteData["Time"] .. "\nReason: " .. PlayerMuteData["Reason"]
     --HistoryScroll.AutomaticSize = 2
   end
@@ -160,13 +159,8 @@ local function Execute()
       Reason = tostring(Reason1)
     }
   
-  local JSONCode = game:GetService("HttpService"):JSONEncode(MuteData)
-  
-  print(JSONCode)
-  
   Data[tostring(maxIndex+1)] = MuteData
   maxIndex += 1
-  print(game:GetService("HttpService"):JSONEncode(Data))
   local JSON = game:GetService("HttpService"):JSONEncode(Data)
   writefile("data.JSON", JSON)
   Refresh()
