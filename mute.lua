@@ -173,27 +173,22 @@ local function HideUI()
     MuteHistory.Visible = false
     Escape.Text = "<b>+</b>"
     UISwap.Text = "History"
+    UISwap.Visible = false
     Index = 0
   else
     Visibility = true
     MainUI.Visible = true
     Escape.Text = "<b>-</b>"
+    UISwap.Visible = true
   end
 end
 
 local function ChangeUI()
-  if Index == 0 then
-    MainUI.Visible = false
-    MuteHistory.Visible = true
+  MainUI.Visible = not MainUI.Visible
+  MuteHistory.Visible = not MuteHistory.Visible
+  UISwap.Text = "History"
+  if not MainUI.Visible then
     UISwap.Text = "Mute"
-    Index = 1
-  end
-  
-  if Index == 1 then
-    MainUI.Visible = true
-    MuteHistory.Visible = false
-    UISwap.Text = "History"
-    Index = 0
   end
   
 end
