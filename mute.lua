@@ -118,7 +118,7 @@ function Refresh()
   ListLayout.Padding = UDim.new(0.01, 0)
   for _,PlayerMuteData in Data do
     local Holder = Instance.new("Frame", HistoryScroll)
-    Holder.Size = UDim2.new(0.9, 0, 0.14, 0)
+    Holder.Size = UDim2.new(0.9, 0, 0.3, 0)
     Holder.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
     local Corner = Instance.new("UICorner", Holder)
     Corner.CornerRadius = UDim.new(0.3, 0)
@@ -130,7 +130,7 @@ function Refresh()
     DataBox.BackgroundTransparency = 1
     DataBox.TextColor3 = Color3.fromRGB(150, 150, 150)
     DataBox.Text = "Player: " ..PlayerMuteData["PlayerName"] .. "(" .. PlayerMuteData["PlayerID"] .. ")\nDate: " .. PlayerMuteData["Date"] .. "\nLength: " .. PlayerMuteData["Time"] .. "\nReason: " .. PlayerMuteData["Reason"]
-    --HistoryScroll.AutomaticSize = 2
+    HistoryScroll.AutomaticSize = 3
   end
 end
 
