@@ -113,6 +113,28 @@ Corner5.CornerRadius = UDim.new(0.2,3)
 
 local Visibility = true
 
+function Refresh()
+  HistoryScroll:ClearAllChildren()
+  for _,PlayerMuteData in Data do
+    local Holder = Instance.new("Frame", HistoryScroll)
+    Holder.Size = UDim2.new(0.9, 0, 0.4, 0)
+    Holder.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+    local Corner = Instance.New("UICorner", Holder)
+    Corner.CornerRadius = UDim.new(1, 1.5)
+    local ListLayout = Instance.new("UIListLayout", HistoryScroll)
+    ListLayout.FillDirection = 0
+    ListLayout.Padding = UDim.new(0.1, 0)
+    
+    local DataBox = Instance.new("TextBox", Holder)
+    DataBox.Size = UDim2.new(0.9, 0, 0.9, 0)
+    DataBox.TextScaled = true
+    DataBox.RichText = true
+    DataBox.TextColor3 = Color3.fromRGB(20, 20, 20)
+    DataBox.Text = "Player: " ..PlayerMuteData["PlayerName"] .. "(" .. PlayerMuteData["PlayerID"] .. ")\nDate: " .. PlayerMuteData["Date"] .. "\nLength: " .. PlayerMuteDate["Time"] .. "\nReason: " .. PlayerMuteData["Reason"]
+    
+  end
+end
+
 
 local function Execute()
   local Name = NameEntry.Text
@@ -141,28 +163,6 @@ local function Execute()
   local JSON = game:GetService("HttpService"):JSONEncode(Data)
   writefile("data.JSON", JSON)
   Refresh()
-end
-
-local function Refresh()
-  HistoryScroll:ClearAllChildren()
-  for _,PlayerMuteData in Data do
-    local Holder = Instance.new("Frame", HistoryScroll)
-    Holder.Size = UDim2.new(0.9, 0, 0.4, 0)
-    Holder.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
-    local Corner = Instance.New("UICorner", Holder)
-    Corner.CornerRadius = UDim.new(1, 1.5)
-    local ListLayout = Instance.new("UIListLayout", HistoryScroll)
-    ListLayout.FillDirection = 0
-    ListLayout.Padding = UDim.new(0.1, 0)
-    
-    local DataBox = Instance.new("TextBox", Holder)
-    DataBox.Size = UDim2.new(0.9, 0, 0.9, 0)
-    DataBox.TextScaled = true
-    DataBox.RichText = true
-    DataBox.TextColor3 = Color3.fromRGB(20, 20, 20)
-    DataBox.Text = "Player: " ..PlayerMuteData["PlayerName"] .. "(" .. PlayerMuteData["PlayerID"] .. ")\nDate: " .. PlayerMuteData["Date"] .. "\nLength: " .. PlayerMuteDate["Time"] .. "\nReason: " .. PlayerMuteData["Reason"]
-    
-  end
 end
 
 local function HideUI()
