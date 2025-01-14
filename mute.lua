@@ -81,6 +81,7 @@ Corner1.CornerRadius = UDim.new(0.1,2)
 local HistoryScroll = Instance.new("ScrollingFrame", MuteHistory)
 HistoryScroll.Size = UDim2.new(0.8, 0, 0.9, 0)
 HistoryScroll.Position = UDim2.new(0.1, 0, 0.15, 0)
+HistoryScroll.Transparency = 1
 local ListLayout = Instance.new("UIListLayout", HistoryScroll)
 ListLayout.FillDirection = 1
 
@@ -126,11 +127,12 @@ function Refresh()
     ListLayout.Padding = UDim.new(0.1, 0)
     
     local DataBox = Instance.new("TextBox", Holder)
-    DataBox.Size = UDim2.new(0.9, 0, 0.9, 0)
+    DataBox.Size = UDim2.new(1, 0, 0.45, 0)
     DataBox.TextScaled = true
     DataBox.RichText = true
     DataBox.Transparency = 1
     DataBox.TextColor3 = Color3.fromRGB(20, 20, 20)
+    print(game:GetService("HttpService"):JSONEncode(PlayerMuteData))
     DataBox.Text = "Player: " ..PlayerMuteData[tostring(i)]["PlayerName"] .. "(" .. PlayerMuteData[tostring(i)]["PlayerID"] .. ")\nDate: " .. PlayerMuteData[tostring(i)]["Date"] .. "\nLength: " .. PlayerMuteDate[tostring(i)]["Time"] .. "\nReason: " .. PlayerMuteData[tostring(i)]["Reason"]
     
   end
