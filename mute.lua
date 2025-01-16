@@ -286,9 +286,9 @@ end
 
 Refresh()
 
-game.ReplicatedStorage.Remotes.Messenger.OnClientEvent:Connect(function(test_a, test_b, test_c)
+game.ReplicatedStorage.Remotes.Messenger.OnClientEvent:Connect(function(test_a, Player, test_c)
     print(test_a)
-    print(test_b)
+    print(Player)
     print(test_c)
     --[[if table.find(RouletteList, Player) then
       for i,v in RouletteList do
