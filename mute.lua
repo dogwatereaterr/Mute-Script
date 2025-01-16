@@ -12,7 +12,7 @@ end
 local UI_Holder = Instance.new("ScreenGui", Player1.PlayerGui)
 UI_Holder.Name = "Mut3r"
 
-function DefinteMuteUI()
+function DefineMuteUI()
   local MainUI = Instance.new("Frame", UI_Holder)
   MainUI.Name = "MainUI"
   MainUI.Size = UDim2.new(0.35, 0, 0.5, 0)
