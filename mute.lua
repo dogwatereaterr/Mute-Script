@@ -108,16 +108,16 @@ UISwap.TextColor3 = Color3.fromRGB(200, 200, 200)
 local Corner5 = Instance.new("UICorner", UISwap)
 Corner5.CornerRadius = UDim.new(0.2,3)
 
-local Search = Instance.new("TextBox", MuteHistory)
-Search.Name = "Entry"
-Search.Size = UDim2.new(0.875, 0, 0.15, 0)
-Search.Position = UDim2.new(0.07, 0, 0.05, 0)
-Search.BackgroundColor3 =Color3.fromRGB(90,90,90)
-Search.TextColor3 = Color3.fromRGB(150, 150, 150)
-Search.Text = ""
-Search.PlaceholderText = "Search..."
-Search.TextScaled = true
-local Corner4 = Instance.new("UICorner", Search)
+local SearchBox = Instance.new("TextBox", MuteHistory)
+SearchBox.Name = "Entry"
+SearchBox.Size = UDim2.new(0.875, 0, 0.15, 0)
+SearchBox.Position = UDim2.new(0.07, 0, 0.05, 0)
+SearchBox.BackgroundColor3 =Color3.fromRGB(90,90,90)
+SearchBox.TextColor3 = Color3.fromRGB(150, 150, 150)
+SearchBox.Text = ""
+SearchBox.PlaceholderText = "Search..."
+SearchBox.TextScaled = true
+local Corner4 = Instance.new("UICorner", SearchBox)
 Corner4.CornerRadius = UDim.new(0.2,3)
 
 local Visibility = true
@@ -256,4 +256,4 @@ Refresh()
 UISwap.Activated:Connect(ChangeUI)
 Confirm.Activated:Connect(Execute)
 Escape.Activated:Connect(HideUI)
-Search.FocusLost:Connect(Search)
+SearchBox.FocusLost:Connect(Search)
