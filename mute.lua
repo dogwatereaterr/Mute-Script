@@ -115,12 +115,60 @@ Search.Position = UDim2.new(0.07, 0, 0.05, 0)
 Search.BackgroundColor3 =Color3.fromRGB(90,90,90)
 Search.TextColor3 = Color3.fromRGB(150, 150, 150)
 Search.Text = ""
-Search.PlaceholderText = "Reason..."
+Search.PlaceholderText = "Search..."
 Search.TextScaled = true
 local Corner4 = Instance.new("UICorner", Search)
 Corner4.CornerRadius = UDim.new(0.2,3)
 
 local Visibility = true
+
+local function Search()
+  HistoryScroll:ClearAllChildren()
+  local ListLayout = Instance.new("UIListLayout")
+  ListLayout.Parent = HistoryScroll
+  ListLayout.FillDirection = 1
+  ListLayout.Padding = UDim.new(0.01, 0)
+
+  if Search.Text = "" then  
+    for _,PlayerMuteData in Data do
+      local Holder = Instance.new("Frame", HistoryScroll)
+      Holder.Size = UDim2.new(0.94, 0, 0.35, 0)
+      Holder.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+      local Corner = Instance.new("UICorner", Holder)
+      Corner.CornerRadius = UDim.new(0.3, 0)
+      
+      local DataBox = Instance.new("TextLabel", Holder)
+      DataBox.Size = UDim2.new(1, 0, 0.95, 0)
+      DataBox.TextScaled = true
+      DataBox.RichText = true
+      DataBox.BackgroundTransparency = 1
+      DataBox.TextColor3 = Color3.fromRGB(150, 150, 150)
+      DataBox.Text = "Player: " ..PlayerMuteData["PlayerName"] .. "(" .. PlayerMuteData["PlayerID"] .. ")\nDate: " .. PlayerMuteData["Date"] .. "\nLength: " .. PlayerMuteData["Time"] .. "\nReason: " .. PlayerMuteData["Reason"]
+      HistoryScroll.AutomaticCanvasSize = 3
+    end
+  else
+    for _,PlayerMuteData in Data do
+      
+      if PlayerMuteData["PlayerName"]:match(Search.Text) then
+        
+        local Holder = Instance.new("Frame", HistoryScroll)
+        Holder.Size = UDim2.new(0.94, 0, 0.35, 0)
+        Holder.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+        local Corner = Instance.new("UICorner", Holder)
+        Corner.CornerRadius = UDim.new(0.3, 0)
+        
+        local DataBox = Instance.new("TextLabel", Holder)
+        DataBox.Size = UDim2.new(1, 0, 0.95, 0)
+        DataBox.TextScaled = true
+        DataBox.RichText = true
+        DataBox.BackgroundTransparency = 1
+        DataBox.TextColor3 = Color3.fromRGB(150, 150, 150)
+        DataBox.Text = "Player: " ..PlayerMuteData["PlayerName"] .. "(" .. PlayerMuteData["PlayerID"] .. ")\nDate: " .. PlayerMuteData["Date"] .. "\nLength: " .. PlayerMuteData["Time"] .. "\nReason: " .. PlayerMuteData["Reason"]
+        HistoryScroll.AutomaticCanvasSize = 3
+      end
+    end
+  end
+end
 
 function Refresh()
   HistoryScroll:ClearAllChildren()
@@ -208,3 +256,4 @@ Refresh()
 UISwap.Activated:Connect(ChangeUI)
 Confirm.Activated:Connect(Execute)
 Escape.Activated:Connect(HideUI)
+Search.FocusLost:Connect(Search)
