@@ -286,22 +286,22 @@ end
 
 Refresh()
 
-game.ReplicatedStorage.Remotes.Messenger.OnClientEvent:Connect(function(1a, 1b, 1c, 1d)
-    print(1a)
-    print(1b)
-    print(1c)
-    print(1d)
-  if table.find(RouletteList, Player) then
-    for i,v in RouletteList do
-      print(v)
+game.ReplicatedStorage.Remotes.Messenger.OnClientEvent:Connect(function(test_a, test_b, test_c, test_c)
+    print(test_a)
+    print(test_b)
+    print(test_c)
+    print(test_d)
+    if table.find(RouletteList, Player) then
+      for i,v in RouletteList do
+        print(v)
+      end
+      return 
+    else
+      table.insert(RouletteList, Player)
+      for i,v in RouletteList do
+        print(v)
+      end
     end
-    return
-  else
-    table.insert(RouletteList, Player)
-    for i,v in RouletteList do
-      print(v)
-    end
-  end
 end)
 
 UISwap.Activated:Connect(ChangeUI)
