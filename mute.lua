@@ -2,6 +2,7 @@ local Player1 = game.Players.LocalPlayer
 local PlayerService = game:GetService("Players")
 
 local Data = game:GetService("HttpService"):JSONDecode(readfile("Data.JSON"))
+local RouletteList = {}
 
 local maxIndex = 0
 for i in pairs(Data) do
@@ -12,6 +13,9 @@ end
 local UI_Holder = Instance.new("ScreenGui", Player1.PlayerGui)
 UI_Holder.Name = "Mut3r"
 
+
+--Define Main System
+--------------------------------------------------------------------
 local MainUI = Instance.new("Frame", UI_Holder)
 MainUI.Name = "MainUI"
 MainUI.Size = UDim2.new(0.35, 0, 0.5, 0)
@@ -19,7 +23,6 @@ MainUI.Position = UDim2.new(0.3, 0, 0.2, 0)
 MainUI.BackgroundColor3 = Color3.fromRGB(41, 42, 46)
 local Corner1 = Instance.new("UICorner", MainUI)
 Corner1.CornerRadius = UDim.new(0.1,2)
-
 
 local NameEntry = Instance.new("TextBox", MainUI)
 NameEntry.Name = "NameEntry"
@@ -66,8 +69,10 @@ Confirm.TextScaled = true
 Confirm.TextColor3 = Color3.fromRGB(140, 140, 140)
 local Corner2 = Instance.new("UICorner", Confirm)
 Corner2.CornerRadius = UDim.new(0.2,2)
+--------------------------------------------------------------------
 
-
+--Define History
+--------------------------------------------------------------------
 local MuteHistory = Instance.new("Frame", UI_Holder)
 MuteHistory.Name = "MainUI"
 MuteHistory.Size = UDim2.new(0.35, 0, 0.5, 0)
@@ -94,8 +99,10 @@ SearchBox.PlaceholderText = "Search..."
 SearchBox.TextScaled = true
 local Corner4 = Instance.new("UICorner", SearchBox)
 Corner4.CornerRadius = UDim.new(0.2,3)
+--------------------------------------------------------------------
 
-
+--Define Extras
+--------------------------------------------------------------------
 local Escape = Instance.new("TextButton", UI_Holder)
 Escape.Name = "Exit"
 Escape.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
@@ -120,7 +127,71 @@ UISwap.TextColor3 = Color3.fromRGB(200, 200, 200)
 local Corner5 = Instance.new("UICorner", UISwap)
 Corner5.CornerRadius = UDim.new(0.2,3)
 
+local RouletteSwap = Instance.new("TextButton", UI_Holder)
+RouletteSwap.Name = "Swap"
+RouletteSwap.BackgroundColor3 = Color3.fromRGB(41, 42, 46)
+RouletteSwap.Size = UDim2.new(0.08, 0, 0.08, 0)
+RouletteSwap.Position = UDim2.new(0.3, 0, 0.38, 0)
+RouletteSwap.RichText = true
+RouletteSwap.Text = "Spin"
+RouletteSwap.TextScaled = true
+RouletteSwap.TextColor3 = Color3.fromRGB(200, 200, 200)
+local Corner5 = Instance.new("UICorner", RouletteSwap)
+Corner5.CornerRadius = UDim.new(0.2,3)
+--------------------------------------------------------------------
+
+--Define Roulette
+--------------------------------------------------------------------
+local RouletteFrame = Instance.new("Frame", UI_Holder)
+RouletteFrame.Name = "MainUI"
+RouletteFrame.Size = UDim2.new(0.35, 0, 0.5, 0)
+RouletteFrame.Position = UDim2.new(0.3, 0, 0.2, 0)
+RouletteFrame.BackgroundColor3 = Color3.fromRGB(41, 42, 46)
+RouletteFrame.Visible = false
+local Corner1 = Instance.new("UICorner", RouletteFrame)
+Corner1.CornerRadius = UDim.new(0.1,2)
+--------------------------------------------------------------------
 local Visibility = true
+
+
+--Define Functions
+function Refresh()
+  HistoryScroll:ClearAllChildren()
+  local ListLayout = Instance.new("UIListLayout")
+  ListLayout.Parent = HistoryScroll
+  ListLayout.FillDirection = 1
+  ListLayout.Padding = UDim.new(0.01, 0)
+  for _,PlayerMuteData in Data do
+    local Holder = Instance.new("Frame", HistoryScroll)
+    Holder.Size = UDim2.new(0.94, 0, 0.35, 0)
+    Holder.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+    local Corner = Instance.new("UICorner", Holder)
+    Corner.CornerRadius = UDim.new(0.3, 0)
+    
+    local DataBox = Instance.new("TextLabel", Holder)
+    DataBox.Size = UDim2.new(1, 0, 0.95, 0)
+    DataBox.TextScaled = true
+    DataBox.RichText = true
+    DataBox.BackgroundTransparency = 1
+    DataBox.TextColor3 = Color3.fromRGB(150, 150, 150)
+    DataBox.Text = "Player: " ..PlayerMuteData["PlayerName"] .. "(" .. PlayerMuteData["PlayerID"] .. ")\nDate: " .. PlayerMuteData["Date"] .. "\nLength: " .. PlayerMuteData["Time"] .. "\nReason: " .. PlayerMuteData["Reason"]
+    HistoryScroll.AutomaticCanvasSize = 3
+  end
+end
+
+function RoulettePlayers(_,_n_ Player,_c_)
+  if table.find(RouletteList, Player) then
+    for i,v in RouletteList do
+      print(v)
+    end
+    return
+  else
+    table.insert(RouletteList, Player)
+    for i,v in RouletteList do
+      print(v)
+    end
+  end
+end
 
 local function Search()
   HistoryScroll:ClearAllChildren()
@@ -129,7 +200,7 @@ local function Search()
   ListLayout.FillDirection = 1
   ListLayout.Padding = UDim.new(0.01, 0)
 
-  if SearchBox.Text == "" then  
+  if SearchBox.Text == "" then
     for _,PlayerMuteData in Data do
       local Holder = Instance.new("Frame", HistoryScroll)
       Holder.Size = UDim2.new(0.94, 0, 0.35, 0)
@@ -169,31 +240,6 @@ local function Search()
     end
   end
 end
-
-function Refresh()
-  HistoryScroll:ClearAllChildren()
-  local ListLayout = Instance.new("UIListLayout")
-  ListLayout.Parent = HistoryScroll
-  ListLayout.FillDirection = 1
-  ListLayout.Padding = UDim.new(0.01, 0)
-  for _,PlayerMuteData in Data do
-    local Holder = Instance.new("Frame", HistoryScroll)
-    Holder.Size = UDim2.new(0.94, 0, 0.35, 0)
-    Holder.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
-    local Corner = Instance.new("UICorner", Holder)
-    Corner.CornerRadius = UDim.new(0.3, 0)
-    
-    local DataBox = Instance.new("TextLabel", Holder)
-    DataBox.Size = UDim2.new(1, 0, 0.95, 0)
-    DataBox.TextScaled = true
-    DataBox.RichText = true
-    DataBox.BackgroundTransparency = 1
-    DataBox.TextColor3 = Color3.fromRGB(150, 150, 150)
-    DataBox.Text = "Player: " ..PlayerMuteData["PlayerName"] .. "(" .. PlayerMuteData["PlayerID"] .. ")\nDate: " .. PlayerMuteData["Date"] .. "\nLength: " .. PlayerMuteData["Time"] .. "\nReason: " .. PlayerMuteData["Reason"]
-    HistoryScroll.AutomaticCanvasSize = 3
-  end
-end
-
 
 local function Execute()
   local Name = NameEntry.Text
@@ -253,6 +299,8 @@ local function ChangeUI()
 end
 
 Refresh()
+
+game.ReplicatedStorage.Messenger.OnClientEvent(RoulettePlayers(_,_n_,Player,_c_))
 
 UISwap.Activated:Connect(ChangeUI)
 Confirm.Activated:Connect(Execute)
