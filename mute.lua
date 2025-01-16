@@ -12,118 +12,113 @@ end
 local UI_Holder = Instance.new("ScreenGui", Player1.PlayerGui)
 UI_Holder.Name = "Mut3r"
 
-function DefineMuteUI()
-  print("there")
-  local MainUI = Instance.new("Frame", UI_Holder)
-  MainUI.Name = "MainUI"
-  MainUI.Size = UDim2.new(0.35, 0, 0.5, 0)
-  MainUI.Position = UDim2.new(0.3, 0, 0.2, 0)
-  MainUI.BackgroundColor3 = Color3.fromRGB(41, 42, 46)
-  local Corner1 = Instance.new("UICorner", MainUI)
-  Corner1.CornerRadius = UDim.new(0.1,2)
-  
-  
-  local NameEntry = Instance.new("TextBox", MainUI)
-  NameEntry.Name = "NameEntry"
-  NameEntry.Size = UDim2.new(0.875, 0, 0.15, 0)
-  NameEntry.Position = UDim2.new(0.07, 0, 0.09, 0)
-  NameEntry.BackgroundColor3 =Color3.fromRGB(90,90,90)
-  NameEntry.TextColor3 = Color3.fromRGB(150, 150, 150)
-  NameEntry.Text = ""
-  NameEntry.PlaceholderText = "Name..."
-  NameEntry.TextScaled = true
-  local Corner3 = Instance.new("UICorner", NameEntry)
-  Corner3.CornerRadius = UDim.new(0.2,3)
-  
-  local TimeEntry = Instance.new("TextBox", MainUI)
-  TimeEntry.Name = "Entry"
-  TimeEntry.Size = UDim2.new(0.875, 0, 0.15, 0)
-  TimeEntry.Position = UDim2.new(0.07, 0, 0.3, 0)
-  TimeEntry.BackgroundColor3 =Color3.fromRGB(90,90,90)
-  TimeEntry.TextColor3 = Color3.fromRGB(150, 150, 150)
-  TimeEntry.Text = ""
-  TimeEntry.PlaceholderText = "Time (in seconds)"
-  TimeEntry.TextScaled = true
-  local Corner4 = Instance.new("UICorner", TimeEntry)
-  Corner4.CornerRadius = UDim.new(0.2,3)
-  
-  local ReasonEntry = Instance.new("TextBox", MainUI)
-  ReasonEntry.Name = "Entry"
-  ReasonEntry.Size = UDim2.new(0.875, 0, 0.15, 0)
-  ReasonEntry.Position = UDim2.new(0.07, 0, 0.51, 0)
-  ReasonEntry.BackgroundColor3 =Color3.fromRGB(90,90,90)
-  ReasonEntry.TextColor3 = Color3.fromRGB(150, 150, 150)
-  ReasonEntry.Text = ""
-  ReasonEntry.PlaceholderText = "Reason..."
-  ReasonEntry.TextScaled = true
-  local Corner4 = Instance.new("UICorner", ReasonEntry)
-  Corner4.CornerRadius = UDim.new(0.2,3)
-  
-  local Confirm = Instance.new("TextButton", MainUI)
-  Confirm.Size = UDim2.new(0.35,0,0.2, 0)
-  Confirm.Position = UDim2.new(0.35, 0, 0.72, 0)
-  Confirm.BackgroundColor3 = Color3.fromRGB(56,57,61)
-  Confirm.Text = "Mute"
-  Confirm.TextScaled = true
-  Confirm.TextColor3 = Color3.fromRGB(140, 140, 140)
-  local Corner2 = Instance.new("UICorner", Confirm)
-  Corner2.CornerRadius = UDim.new(0.2,2)
-end
+local MainUI = Instance.new("Frame", UI_Holder)
+MainUI.Name = "MainUI"
+MainUI.Size = UDim2.new(0.35, 0, 0.5, 0)
+MainUI.Position = UDim2.new(0.3, 0, 0.2, 0)
+MainUI.BackgroundColor3 = Color3.fromRGB(41, 42, 46)
+local Corner1 = Instance.new("UICorner", MainUI)
+Corner1.CornerRadius = UDim.new(0.1,2)
 
-function DefineHistoryUI()
-  local MuteHistory = Instance.new("Frame", UI_Holder)
-  MuteHistory.Name = "MainUI"
-  MuteHistory.Size = UDim2.new(0.35, 0, 0.5, 0)
-  MuteHistory.Position = UDim2.new(0.3, 0, 0.2, 0)
-  MuteHistory.BackgroundColor3 = Color3.fromRGB(41, 42, 46)
-  MuteHistory.Visible = false
-  local Corner1 = Instance.new("UICorner", MuteHistory)
-  Corner1.CornerRadius = UDim.new(0.1,2)
-  
-  local HistoryScroll = Instance.new("ScrollingFrame", MuteHistory)
-  HistoryScroll.Size = UDim2.new(0.872, 0, 0.75, 0)
-  HistoryScroll.Position = UDim2.new(0.1, 0, 0.221, 0)
-  HistoryScroll.Transparency = 1
-  HistoryScroll.ScrollingDirection = 2
-  
-  local SearchBox = Instance.new("TextBox", MuteHistory)
-  SearchBox.Name = "Entry"
-  SearchBox.Size = UDim2.new(0.875, 0, 0.15, 0)
-  SearchBox.Position = UDim2.new(0.07, 0, 0.05, 0)
-  SearchBox.BackgroundColor3 =Color3.fromRGB(90,90,90)
-  SearchBox.TextColor3 = Color3.fromRGB(150, 150, 150)
-  SearchBox.Text = ""
-  SearchBox.PlaceholderText = "Search..."
-  SearchBox.TextScaled = true
-  local Corner4 = Instance.new("UICorner", SearchBox)
-  Corner4.CornerRadius = UDim.new(0.2,3)
-end
 
-function DefineExtraUI()
-  local Escape = Instance.new("TextButton", UI_Holder)
-  Escape.Name = "Exit"
-  Escape.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-  Escape.Size = UDim2.new(0.035, 0, 0.08, 0)
-  Escape.Position = UDim2.new(0.95, 0, 0.2, 0)
-  Escape.RichText = true
-  Escape.Text = "<b>-</b>"
-  Escape.TextScaled = true
-  Escape.TextColor3 = Color3.fromRGB(200, 200, 200)
-  local Corner5 = Instance.new("UICorner", Escape)
-  Corner5.CornerRadius = UDim.new(0.2,3)
-  
-  local UISwap = Instance.new("TextButton", UI_Holder)
-  UISwap.Name = "Swap"
-  UISwap.BackgroundColor3 = Color3.fromRGB(41, 42, 46)
-  UISwap.Size = UDim2.new(0.08, 0, 0.08, 0)
-  UISwap.Position = UDim2.new(0.3, 0, 0.16, 0)
-  UISwap.RichText = true
-  UISwap.Text = "History"
-  UISwap.TextScaled = true
-  UISwap.TextColor3 = Color3.fromRGB(200, 200, 200)
-  local Corner5 = Instance.new("UICorner", UISwap)
-  Corner5.CornerRadius = UDim.new(0.2,3)
-end
+local NameEntry = Instance.new("TextBox", MainUI)
+NameEntry.Name = "NameEntry"
+NameEntry.Size = UDim2.new(0.875, 0, 0.15, 0)
+NameEntry.Position = UDim2.new(0.07, 0, 0.09, 0)
+NameEntry.BackgroundColor3 =Color3.fromRGB(90,90,90)
+NameEntry.TextColor3 = Color3.fromRGB(150, 150, 150)
+NameEntry.Text = ""
+NameEntry.PlaceholderText = "Name..."
+NameEntry.TextScaled = true
+local Corner3 = Instance.new("UICorner", NameEntry)
+Corner3.CornerRadius = UDim.new(0.2,3)
+
+local TimeEntry = Instance.new("TextBox", MainUI)
+TimeEntry.Name = "Entry"
+TimeEntry.Size = UDim2.new(0.875, 0, 0.15, 0)
+TimeEntry.Position = UDim2.new(0.07, 0, 0.3, 0)
+TimeEntry.BackgroundColor3 =Color3.fromRGB(90,90,90)
+TimeEntry.TextColor3 = Color3.fromRGB(150, 150, 150)
+TimeEntry.Text = ""
+TimeEntry.PlaceholderText = "Time (in seconds)"
+TimeEntry.TextScaled = true
+local Corner4 = Instance.new("UICorner", TimeEntry)
+Corner4.CornerRadius = UDim.new(0.2,3)
+
+local ReasonEntry = Instance.new("TextBox", MainUI)
+ReasonEntry.Name = "Entry"
+ReasonEntry.Size = UDim2.new(0.875, 0, 0.15, 0)
+ReasonEntry.Position = UDim2.new(0.07, 0, 0.51, 0)
+ReasonEntry.BackgroundColor3 =Color3.fromRGB(90,90,90)
+ReasonEntry.TextColor3 = Color3.fromRGB(150, 150, 150)
+ReasonEntry.Text = ""
+ReasonEntry.PlaceholderText = "Reason..."
+ReasonEntry.TextScaled = true
+local Corner4 = Instance.new("UICorner", ReasonEntry)
+Corner4.CornerRadius = UDim.new(0.2,3)
+
+local Confirm = Instance.new("TextButton", MainUI)
+Confirm.Size = UDim2.new(0.35,0,0.2, 0)
+Confirm.Position = UDim2.new(0.35, 0, 0.72, 0)
+Confirm.BackgroundColor3 = Color3.fromRGB(56,57,61)
+Confirm.Text = "Mute"
+Confirm.TextScaled = true
+Confirm.TextColor3 = Color3.fromRGB(140, 140, 140)
+local Corner2 = Instance.new("UICorner", Confirm)
+Corner2.CornerRadius = UDim.new(0.2,2)
+
+
+local MuteHistory = Instance.new("Frame", UI_Holder)
+MuteHistory.Name = "MainUI"
+MuteHistory.Size = UDim2.new(0.35, 0, 0.5, 0)
+MuteHistory.Position = UDim2.new(0.3, 0, 0.2, 0)
+MuteHistory.BackgroundColor3 = Color3.fromRGB(41, 42, 46)
+MuteHistory.Visible = false
+local Corner1 = Instance.new("UICorner", MuteHistory)
+Corner1.CornerRadius = UDim.new(0.1,2)
+
+local HistoryScroll = Instance.new("ScrollingFrame", MuteHistory)
+HistoryScroll.Size = UDim2.new(0.872, 0, 0.75, 0)
+HistoryScroll.Position = UDim2.new(0.1, 0, 0.221, 0)
+HistoryScroll.Transparency = 1
+HistoryScroll.ScrollingDirection = 2
+
+local SearchBox = Instance.new("TextBox", MuteHistory)
+SearchBox.Name = "Entry"
+SearchBox.Size = UDim2.new(0.875, 0, 0.15, 0)
+SearchBox.Position = UDim2.new(0.07, 0, 0.05, 0)
+SearchBox.BackgroundColor3 =Color3.fromRGB(90,90,90)
+SearchBox.TextColor3 = Color3.fromRGB(150, 150, 150)
+SearchBox.Text = ""
+SearchBox.PlaceholderText = "Search..."
+SearchBox.TextScaled = true
+local Corner4 = Instance.new("UICorner", SearchBox)
+Corner4.CornerRadius = UDim.new(0.2,3)
+
+
+local Escape = Instance.new("TextButton", UI_Holder)
+Escape.Name = "Exit"
+Escape.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+Escape.Size = UDim2.new(0.035, 0, 0.08, 0)
+Escape.Position = UDim2.new(0.95, 0, 0.2, 0)
+Escape.RichText = true
+Escape.Text = "<b>-</b>"
+Escape.TextScaled = true
+Escape.TextColor3 = Color3.fromRGB(200, 200, 200)
+local Corner5 = Instance.new("UICorner", Escape)
+Corner5.CornerRadius = UDim.new(0.2,3)
+
+local UISwap = Instance.new("TextButton", UI_Holder)
+UISwap.Name = "Swap"
+UISwap.BackgroundColor3 = Color3.fromRGB(41, 42, 46)
+UISwap.Size = UDim2.new(0.08, 0, 0.08, 0)
+UISwap.Position = UDim2.new(0.3, 0, 0.16, 0)
+UISwap.RichText = true
+UISwap.Text = "History"
+UISwap.TextScaled = true
+UISwap.TextColor3 = Color3.fromRGB(200, 200, 200)
+local Corner5 = Instance.new("UICorner", UISwap)
+Corner5.CornerRadius = UDim.new(0.2,3)
 
 local Visibility = true
 
