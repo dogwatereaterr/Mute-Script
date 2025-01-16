@@ -179,7 +179,7 @@ function Refresh()
   end
 end
 
-function RoulettePlayers(_,_n_ Player,_c_)
+function RoulettePlayers(_,_n_, Player,_c_)
   if table.find(RouletteList, Player) then
     for i,v in RouletteList do
       print(v)
