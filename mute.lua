@@ -252,9 +252,6 @@ local function ChangeUI()
   end
 end
 
-DefineMuteUI()
-DefineHistoryUI()
-DefineExtraUI()
 Refresh()
 
 UISwap.Activated:Connect(ChangeUI)
