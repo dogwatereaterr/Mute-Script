@@ -131,9 +131,9 @@ local RouletteSwap = Instance.new("TextButton", UI_Holder)
 RouletteSwap.Name = "Swap"
 RouletteSwap.BackgroundColor3 = Color3.fromRGB(41, 42, 46)
 RouletteSwap.Size = UDim2.new(0.08, 0, 0.08, 0)
-RouletteSwap.Position = UDim2.new(0.3, 0, 0.38, 0)
+RouletteSwap.Position = UDim2.new(0.38, 0, 0.16, 0)
 RouletteSwap.RichText = true
-RouletteSwap.Text = "Spin"
+RouletteSwap.Text = "Roulette"
 RouletteSwap.TextScaled = true
 RouletteSwap.TextColor3 = Color3.fromRGB(200, 200, 200)
 local Corner5 = Instance.new("UICorner", RouletteSwap)
@@ -266,23 +266,77 @@ local function HideUI()
     Escape.Text = "<b>+</b>"
     UISwap.Text = "History"
     UISwap.Visible = false
+    RouletteSwap.Visible = false
   else
     Visibility = true
     MainUI.Visible = true
     MuteHistory.Visible = false
     Escape.Text = "<b>-</b>"
     UISwap.Visible = true
+    RouletteSwap.Visible = true
   end
 end
 
-local function ChangeUI()
-  MainUI.Visible = not MainUI.Visible
-  MuteHistory.Visible = not MuteHistory.Visible
-  UISwap.Text = "History"
-  if not MainUI.Visible then
+local function HistoryChangeUI()
+  if MainUI.Visible == true then
+    MainUI.Visible = false
+    MuteHistory.Visible = true
+    RouletteFrame.Visible = false
     UISwap.Text = "Mute"
+    return
+  end
+  
+  if MuteHistory.Visible == true then
+    MainUI.Visible = true
+    MuteHistory.Visible = false
+    RouletteFrame.Visible = false
+    UISwap.Text = "History"
+    return
+  end
+  
+  if UISwap.Text == "History" then
+    MainUI.Visible = false
+    MuteHistory.Visible = true
+    RouletteFrame.Visible = false
+    UISwap.Text = "Mute"
+    return
+  end
+  
+  if UISwap.Text == "Mute" then
+    MainUI.Visible = true
+    MuteHistory.Visible = false
+    RouletteFrame.Visible = false
+    UISwap.Text = "History"
+    return
   end
 end
+
+local function RouletteChangeUI()
+  if RouletteFrame.Visible == false then
+    MainUI.Visible = false
+    MuteHistory.Visible = false
+    RouletteFrame.Visible = true
+    RouletteSwap.Text = "Back"
+    return
+  end
+
+  if UISwap.Text == "History" then
+    MainUI.Visible = true
+    MuteHistory.Visible = false
+    RouletteFrame.Visible = false
+    RouletteSwap.Text = "Roulette"
+    return
+  end
+  
+  if UISwap.Text == "Mute" then
+    MainUI.Visible = true
+    MuteHistory.Visible = false
+    RouletteFrame.Visible = false
+    RouletteSwap.Text = "Roulette"
+    return
+  end
+end
+
 
 Refresh()
 
@@ -291,7 +345,7 @@ game.ReplicatedStorage.Remotes.Messenger.OnClientEvent:Connect(function(test_a, 
       for i,v in pairs(RouletteList) do
         print(v)
       end
-      return 
+      return
     else
       table.insert(RouletteList, Player)
       for i,v in pairs(RouletteList) do
@@ -300,7 +354,7 @@ game.ReplicatedStorage.Remotes.Messenger.OnClientEvent:Connect(function(test_a, 
     end
 end)
 
-UISwap.Activated:Connect(ChangeUI)
+UISwap.Activated:Connect(HistoryChangeUI)
 Confirm.Activated:Connect(Execute)
 Escape.Activated:Connect(HideUI)
 SearchBox.FocusLost:Connect(Search)
