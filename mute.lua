@@ -78,8 +78,8 @@ local Corner1 = Instance.new("UICorner", MuteHistory)
 Corner1.CornerRadius = UDim.new(0.1,2)
 
 local HistoryScroll = Instance.new("ScrollingFrame", MuteHistory)
-HistoryScroll.Size = UDim2.new(0.82, 0, 0.85, 0)
-HistoryScroll.Position = UDim2.new(0.1, 0, 0.12, 0)
+HistoryScroll.Size = UDim2.new(0.872, 0, 0.75, 0)
+HistoryScroll.Position = UDim2.new(0.1, 0, 0.221, 0)
 HistoryScroll.Transparency = 1
 HistoryScroll.ScrollingDirection = 2
 
@@ -108,6 +108,18 @@ UISwap.TextColor3 = Color3.fromRGB(200, 200, 200)
 local Corner5 = Instance.new("UICorner", UISwap)
 Corner5.CornerRadius = UDim.new(0.2,3)
 
+local Search = Instance.new("TextBox", MuteHistory)
+Search.Name = "Entry"
+Search.Size = UDim2.new(0.875, 0, 0.15, 0)
+Search.Position = UDim2.new(0.07, 0, 0.05, 0)
+Search.BackgroundColor3 =Color3.fromRGB(90,90,90)
+Search.TextColor3 = Color3.fromRGB(150, 150, 150)
+Search.Text = ""
+Search.PlaceholderText = "Reason..."
+Search.TextScaled = true
+local Corner4 = Instance.new("UICorner", Search)
+Corner4.CornerRadius = UDim.new(0.2,3)
+
 local Visibility = true
 
 function Refresh()
@@ -118,7 +130,7 @@ function Refresh()
   ListLayout.Padding = UDim.new(0.01, 0)
   for _,PlayerMuteData in Data do
     local Holder = Instance.new("Frame", HistoryScroll)
-    Holder.Size = UDim2.new(0.9, 0, 0.3, 0)
+    Holder.Size = UDim2.new(0.94, 0, 0.35, 0)
     Holder.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
     local Corner = Instance.new("UICorner", Holder)
     Corner.CornerRadius = UDim.new(0.3, 0)
