@@ -290,7 +290,6 @@ game.ReplicatedStorage.Remotes.Messenger.OnClientEvent:Connect(function(test_a, 
     print(test_a)
     print(test_b)
     print(test_c)
-    print(test_d)
     if table.find(RouletteList, Player) then
       for i,v in RouletteList do
         print(v)
