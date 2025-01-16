@@ -179,20 +179,6 @@ function Refresh()
   end
 end
 
-local function RoulettePlayers(_,_n_, Player,_c_)
-  if table.find(RouletteList, Player) then
-    for i,v in RouletteList do
-      print(v)
-    end
-    return
-  else
-    table.insert(RouletteList, Player)
-    for i,v in RouletteList do
-      print(v)
-    end
-  end
-end
-
 local function Search()
   HistoryScroll:ClearAllChildren()
   local ListLayout = Instance.new("UIListLayout")
@@ -300,7 +286,19 @@ end
 
 Refresh()
 
-game.ReplicatedStorage.Remotes.Messenger.OnClientEvent:Connect(RoulettePlayers(_,_n_,Player,_c_))
+game.ReplicatedStorage.Remotes.Messenger.OnClientEvent:Connect(function (_,_n_, Player,)
+  if table.find(RouletteList, Player) then
+    for i,v in RouletteList do
+      print(v)
+    end
+    return
+  else
+    table.insert(RouletteList, Player)
+    for i,v in RouletteList do
+      print(v)
+    end
+  end
+end)
 
 UISwap.Activated:Connect(ChangeUI)
 Confirm.Activated:Connect(Execute)
