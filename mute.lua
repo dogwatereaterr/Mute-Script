@@ -286,7 +286,7 @@ end
 
 Refresh()
 
-game.ReplicatedStorage.Remotes.Messenger.OnClientEvent:Connect(function(test_a, test_b, test_c, test_c)
+game.ReplicatedStorage.Remotes.Messenger.OnClientEvent:Connect(function(test_a, test_b, test_c)
     print(test_a)
     print(test_b)
     print(test_c)
