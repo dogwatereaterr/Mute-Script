@@ -131,7 +131,7 @@ local RouletteSwap = Instance.new("TextButton", UI_Holder)
 RouletteSwap.Name = "Swap"
 RouletteSwap.BackgroundColor3 = Color3.fromRGB(41, 42, 46)
 RouletteSwap.Size = UDim2.new(0.08, 0, 0.08, 0)
-RouletteSwap.Position = UDim2.new(0.38, 0, 0.16, 0)
+RouletteSwap.Position = UDim2.new(0.39, 0, 0.16, 0)
 RouletteSwap.RichText = true
 RouletteSwap.Text = "Roulette"
 RouletteSwap.TextScaled = true
@@ -355,6 +355,7 @@ game.ReplicatedStorage.Remotes.Messenger.OnClientEvent:Connect(function(test_a, 
 end)
 
 UISwap.Activated:Connect(HistoryChangeUI)
+RouletteSwap.Activated:Connect(RouletteChangeUI)
 Confirm.Activated:Connect(Execute)
 Escape.Activated:Connect(HideUI)
 SearchBox.FocusLost:Connect(Search)
