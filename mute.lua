@@ -286,7 +286,7 @@ end
 
 Refresh()
 
-game.ReplicatedStorage.Remotes.Messenger.OnClientEvent:Connect(function(_,_n_, Player,)
+game.ReplicatedStorage.Remotes.Messenger.OnClientEvent:Connect(function(_,Player)
   if table.find(RouletteList, Player) then
     for i,v in RouletteList do
       print(v)
