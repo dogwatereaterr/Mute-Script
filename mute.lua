@@ -129,7 +129,7 @@ local function Search()
   ListLayout.FillDirection = 1
   ListLayout.Padding = UDim.new(0.01, 0)
 
-  if Search.Text = "" then  
+  if Search.Text == "" then  
     for _,PlayerMuteData in Data do
       local Holder = Instance.new("Frame", HistoryScroll)
       Holder.Size = UDim2.new(0.94, 0, 0.35, 0)
