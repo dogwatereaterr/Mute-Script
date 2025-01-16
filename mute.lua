@@ -290,7 +290,7 @@ game.ReplicatedStorage.Remotes.Messenger.OnClientEvent:Connect(function(test_a, 
     print(test_a)
     print(test_b)
     print(test_c)
-    if table.find(RouletteList, Player) then
+    --[[if table.find(RouletteList, Player) then
       for i,v in RouletteList do
         print(v)
       end
@@ -300,7 +300,7 @@ game.ReplicatedStorage.Remotes.Messenger.OnClientEvent:Connect(function(test_a, 
       for i,v in RouletteList do
         print(v)
       end
-    end
+    end]]
 end)
 
 UISwap.Activated:Connect(ChangeUI)
