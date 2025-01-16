@@ -179,7 +179,7 @@ function Refresh()
   end
 end
 
-function RoulettePlayers(_,_n_, Player,_c_)
+local function RoulettePlayers(_,_n_, Player,_c_)
   if table.find(RouletteList, Player) then
     for i,v in RouletteList do
       print(v)
@@ -300,7 +300,7 @@ end
 
 Refresh()
 
-game.ReplicatedStorage.Remotes.Messenger:OnClientEvent(RoulettePlayers(_,_n_,Player,_c_))
+game.ReplicatedStorage.Remotes.Messenger.OnClientEvent:Connect(RoulettePlayers(_,_n_,Player,_c_))
 
 UISwap.Activated:Connect(ChangeUI)
 Confirm.Activated:Connect(Execute)
