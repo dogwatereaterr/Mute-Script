@@ -312,6 +312,7 @@ local function HistoryChangeUI()
 end
 
 local function RouletteChangeUI()
+  print("Swapping")
   if RouletteFrame.Visible == false then
     MainUI.Visible = false
     MuteHistory.Visible = false
@@ -320,7 +321,7 @@ local function RouletteChangeUI()
     return
   end
 
-  if UISwap.Text == "History" then
+  if UISwap.Text == "History" and RouletteFrame.Visible == true then
     MainUI.Visible = true
     MuteHistory.Visible = false
     RouletteFrame.Visible = false
@@ -328,7 +329,7 @@ local function RouletteChangeUI()
     return
   end
   
-  if UISwap.Text == "Mute" then
+  if UISwap.Text == "Mute" and RouletteFrame.Visible == true then
     MainUI.Visible = true
     MuteHistory.Visible = false
     RouletteFrame.Visible = false
