@@ -222,7 +222,9 @@ function AddPlayerRoulette(_, Player, Message)
       DataBox.Text = Participant.Name
       HistoryScroll.AutomaticCanvasSize = 3
     end
-  else if Message == "/remove" and table.find(RouletteList, Player) then
+  end
+  
+  if Message == "/remove" and table.find(RouletteList, Player) then
     table.remove(RouletteList, Player)
     
     HistoryScroll:ClearAllChildren()
@@ -248,7 +250,6 @@ function AddPlayerRoulette(_, Player, Message)
       HistoryScroll.AutomaticCanvasSize = 3
     end
   end
-  
 end
 
 local function Search()
