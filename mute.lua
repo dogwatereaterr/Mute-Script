@@ -169,6 +169,7 @@ local Corner5 = Instance.new("UICorner", RouletteSwap)
 Corner5.CornerRadius = UDim.new(0.2,3)
 --------------------------------------------------------------------
 local Visibility = true
+local RouletteLength = 1
 
 
 --Define Functions
@@ -196,7 +197,7 @@ function Refresh()
   end
 end
 
-function AddPlayerRoulette(_, Player, Message)
+function RouletteCommandHandler(_, Player, Message)
   if Message == "/join" and not table.find(RouletteList, Player) then
     table.insert(RouletteList, Player)
     
@@ -251,6 +252,15 @@ function AddPlayerRoulette(_, Player, Message)
       DataBox.Text = Participant
       DataBox.TextXAlignment = 2
       RouletteScroll.AutomaticCanvasSize = 3
+    end
+  end
+
+  if Message.match("/set time") and Player == "hax_yo" then
+    RouletteLength = tonumber(Message.gsub("/set time"))
+    if RouletteLength <= 3600 then
+      game.ReplicatedStorage.Remotes.Messenger:FireServer("Length set to: " .. RouletteLength .. "s")
+    else
+      game.ReplicatedStorage.Remotes.Messenger:FireServer("Invalid Length")
     end
   end
 end
@@ -329,9 +339,10 @@ local function Execute()
   Data[tostring(maxIndex+1)] = MuteData
   maxIndex += 1
   local JSON = game:GetService("HttpService"):JSONEncode(Data)
+  print(JSON)
   writefile("data.JSON", JSON)
   Refresh()
-    game.ReplicatedStorage.Remotes.Messenger:FireServer("/cmd mute " .. ID .. " " .. Length)
+  game.ReplicatedStorage.Remotes.Messenger:FireServer("/cmd mute " .. ID .. " " .. Length)
 end
 
 local function HideUI()
@@ -428,7 +439,7 @@ local function PlayRoulette()
   
   local Name = RouletteList[MutedPersonIndex]
   local ID = tostring(PlayerService:GetUserIdFromNameAsync(Name))
-  local Length = 1
+  local Length = RouletteLength
   local Timestamp = os.date("%c")
   local Reason1 = "Lost the game..."
 
