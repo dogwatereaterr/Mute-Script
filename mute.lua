@@ -198,7 +198,7 @@ function Refresh()
   end
 end
 
-function RouletteCommandHandler(_, Player, Message)
+local function RouletteCommandHandler(_, Player, Message)
   if Message == "/join" and not table.find(RouletteList, Player) then
     table.insert(RouletteList, Player)
     
@@ -337,8 +337,8 @@ local function Execute()
       Reason = tostring(Reason1)
     }
   
-  Data[tostring(maxIndex+1)] = MuteData
   maxIndex += 1
+  Data[tostring(maxIndex)] = MuteData
   local JSON = game:GetService("HttpService"):JSONEncode(Data)
   print(JSON)
   writefile("data.JSON", JSON)
@@ -400,7 +400,6 @@ local function HistoryChangeUI()
 end
 
 local function RouletteChangeUI()
-  print("Swapping")
   if RouletteFrame.Visible == false then
     MainUI.Visible = false
     MuteHistory.Visible = false
@@ -459,8 +458,8 @@ local function PlayRoulette()
       Reason = tostring(Reason1)
     }
   
-  Data[tostring(maxIndex+1)] = MuteData
   maxIndex += 1
+  Data[tostring(maxIndex)] = MuteData
   local JSON = game:GetService("HttpService"):JSONEncode(Data)
   writefile("data.JSON", JSON)
   Refresh()
