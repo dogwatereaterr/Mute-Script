@@ -118,14 +118,13 @@ RouletteScroll.Position = UDim2.new(0.1, 0, 0.221, 0)
 RouletteScroll.Transparency = 1
 RouletteScroll.ScrollingDirection = 2
 
-local RouletteAccept = Instance.new("TextBox", RouletteFrame)
+local RouletteAccept = Instance.new("TextButton", RouletteFrame)
 RouletteAccept.Name = "Entry"
 RouletteAccept.Size = UDim2.new(0.875, 0, 0.15, 0)
 RouletteAccept.Position = UDim2.new(0.07, 0, 0.05, 0)
 RouletteAccept.BackgroundColor3 =Color3.fromRGB(90,90,90)
 RouletteAccept.TextColor3 = Color3.fromRGB(150, 150, 150)
-RouletteAccept.Text = ""
-RouletteAccept.PlaceholderText = "Search..."
+RouletteAccept.Text = "Play"
 RouletteAccept.TextScaled = true
 local Corner4 = Instance.new("UICorner", RouletteAccept)
 Corner4.CornerRadius = UDim.new(0.2,3)
@@ -414,19 +413,7 @@ end
 
 Refresh()
 
-game.ReplicatedStorage.Remotes.Messenger.OnClientEvent:Connect(function(test_a, Player, test_c)
-    if table.find(RouletteList, Player) then
-      for i,v in pairs(RouletteList) do
-        print(v)
-      end
-      return
-    else
-      table.insert(RouletteList, Player)
-      for i,v in pairs(RouletteList) do
-        print(v)
-      end
-    end
-end)
+game.ReplicatedStorage.Remotes.Messenger.OnClientEvent:Connect(AddPlayerRoulette)
 
 UISwap.Activated:Connect(HistoryChangeUI)
 RouletteSwap.Activated:Connect(RouletteChangeUI)
