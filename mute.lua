@@ -432,7 +432,7 @@ local function PlayRoulette()
   local Timestamp = os.date("%c")
   local Reason1 = "Lost the game..."
 
-  game.ReplicatedStorage.Remotes.Messenger:FireServer(Name .. "has lost the game")
+  game.ReplicatedStorage.Remotes.Messenger:FireServer(Name .. " has lost the game...")
   wait(5)
   
   print(Name .. " " .. ID .. " " .. Length .. " " .. Timestamp .. " " .. Reason1)
