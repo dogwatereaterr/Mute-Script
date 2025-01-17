@@ -13,6 +13,7 @@ end
 local UI_Holder = Instance.new("ScreenGui", Player1.PlayerGui)
 UI_Holder.Name = "Mut3r"
 
+print("v3.2.0")
 
 --Define Main System
 --------------------------------------------------------------------
