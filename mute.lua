@@ -263,6 +263,7 @@ local function HideUI()
     Visibility = false
     MainUI.Visible = false
     MuteHistory.Visible = false
+    RouletteFrame.Visible = false
     Escape.Text = "<b>+</b>"
     UISwap.Text = "History"
     UISwap.Visible = false
@@ -270,7 +271,6 @@ local function HideUI()
   else
     Visibility = true
     MainUI.Visible = true
-    MuteHistory.Visible = false
     Escape.Text = "<b>-</b>"
     UISwap.Visible = true
     RouletteSwap.Visible = true
