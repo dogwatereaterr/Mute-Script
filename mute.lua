@@ -200,7 +200,7 @@ function AddPlayerRoulette(_, Player, Message)
   if Message == "/join" then
     table.insert(RouletteList, Player)
     
-    HistoryScroll:ClearAllChildren()
+    RouletteFrame:ClearAllChildren()
     local ListLayout = Instance.new("UIListLayout")
     ListLayout.Parent = RouletteScroll
     ListLayout.FillDirection = 1
@@ -214,21 +214,22 @@ function AddPlayerRoulette(_, Player, Message)
       Corner.CornerRadius = UDim.new(0.3, 0)
       
       local DataBox = Instance.new("TextLabel", Holder)
-      DataBox.Size = UDim2.new(1, 0, 0.95, 0)
+      DataBox.Size = UDim2.new(1, 0, 0.8, 0)
       DataBox.TextScaled = true
       DataBox.RichText = true
       DataBox.BackgroundTransparency = 1
       DataBox.TextColor3 = Color3.fromRGB(150, 150, 150)
       DataBox.Text = Participant
+      Databox.TextXAlignment = 2
       HistoryScroll.AutomaticCanvasSize = 3
     end
   end
   
   if Message == "/remove" and table.find(RouletteList, Player) then
     local playerIndex = table.find(RouletteList, Player)
-    table.remove(RouletteList, playerIndex)
+    table.remove(RouletteList, tonumber(playerIndex))
     
-    HistoryScroll:ClearAllChildren()
+    RouletteFrame:ClearAllChildren()
     local ListLayout = Instance.new("UIListLayout")
     ListLayout.Parent = RouletteScroll
     ListLayout.FillDirection = 1
