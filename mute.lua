@@ -219,13 +219,14 @@ function AddPlayerRoulette(_, Player, Message)
       DataBox.RichText = true
       DataBox.BackgroundTransparency = 1
       DataBox.TextColor3 = Color3.fromRGB(150, 150, 150)
-      DataBox.Text = Participant.Name
+      DataBox.Text = Participant
       HistoryScroll.AutomaticCanvasSize = 3
     end
   end
   
   if Message == "/remove" and table.find(RouletteList, Player) then
-    table.remove(RouletteList, Player)
+    local playerIndex = table.find(RouletteList, Player)
+    table.remove(RouletteList, playerIndex)
     
     HistoryScroll:ClearAllChildren()
     local ListLayout = Instance.new("UIListLayout")
@@ -246,7 +247,7 @@ function AddPlayerRoulette(_, Player, Message)
       DataBox.RichText = true
       DataBox.BackgroundTransparency = 1
       DataBox.TextColor3 = Color3.fromRGB(150, 150, 150)
-      DataBox.Text = Participant.Name
+      DataBox.Text = Participant
       HistoryScroll.AutomaticCanvasSize = 3
     end
   end
