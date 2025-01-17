@@ -220,8 +220,8 @@ function AddPlayerRoulette(_, Player, Message)
       DataBox.BackgroundTransparency = 1
       DataBox.TextColor3 = Color3.fromRGB(150, 150, 150)
       DataBox.Text = Participant
-      Databox.TextXAlignment = 2
-      HistoryScroll.AutomaticCanvasSize = 3
+      DataBox.TextXAlignment = 2
+      RouletteScroll.AutomaticCanvasSize = 3
     end
   end
   
@@ -249,7 +249,8 @@ function AddPlayerRoulette(_, Player, Message)
       DataBox.BackgroundTransparency = 1
       DataBox.TextColor3 = Color3.fromRGB(150, 150, 150)
       DataBox.Text = Participant
-      HistoryScroll.AutomaticCanvasSize = 3
+      DataBox.TextXAlignment = 2
+      RouletteScroll.AutomaticCanvasSize = 3
     end
   end
 end
