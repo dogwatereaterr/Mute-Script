@@ -197,7 +197,7 @@ function Refresh()
 end
 
 function AddPlayerRoulette(_, Player, Message)
-  if Message == "/join" then
+  if Message == "/join" and not table.find(RouletteList, Player) then
     table.insert(RouletteList, Player)
     
     RouletteScroll:ClearAllChildren()
@@ -311,7 +311,6 @@ local function Execute()
   local Reason1 = ReasonEntry.Text
   
   print(Name .. " " .. ID .. " " .. Length .. " " .. Timestamp .. " " .. Reason1)
-  game.ReplicatedStorage.Remotes.Messenger:FireServer("/cmd mute " .. ID .. " " .. Length)
 
   if math.floor(Length/3600) >= 1 then
     LengthString = tostring(math.floor(Length/3600)) .. "h " .. (tostring(math.floor(Length/60) - 60*math.floor(Length/3600))) .. "m " .. tostring(Length - 3600*math.floor(Length/3600) - (60*math.floor(Length/60) - 3600*math.floor(Length/3600))) .. "s"
@@ -332,6 +331,7 @@ local function Execute()
   local JSON = game:GetService("HttpService"):JSONEncode(Data)
   writefile("data.JSON", JSON)
   Refresh()
+    game.ReplicatedStorage.Remotes.Messenger:FireServer("/cmd mute " .. ID .. " " .. Length)
 end
 
 local function HideUI()
@@ -436,7 +436,6 @@ local function PlayRoulette()
   wait(5)
   
   print(Name .. " " .. ID .. " " .. Length .. " " .. Timestamp .. " " .. Reason1)
-  game.ReplicatedStorage.Remotes.Messenger:FireServer("/cmd mute " .. ID .. " " .. Length)
   
   LengthString = tostring(math.floor(Length/60)) .. "m " .. tostring(Length - 60*math.floor(Length/60)) .. "s"
   
@@ -453,6 +452,7 @@ local function PlayRoulette()
   local JSON = game:GetService("HttpService"):JSONEncode(Data)
   writefile("data.JSON", JSON)
   Refresh()
+  game.ReplicatedStorage.Remotes.Messenger:FireServer("/cmd mute " .. ID .. " " .. Length)
 end
 
 Refresh()
