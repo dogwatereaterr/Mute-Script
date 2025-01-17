@@ -200,7 +200,7 @@ function AddPlayerRoulette(_, Player, Message)
   if Message == "/join" then
     table.insert(RouletteList, Player)
     
-    RouletteFrame:ClearAllChildren()
+    RouletteScroll:ClearAllChildren()
     local ListLayout = Instance.new("UIListLayout")
     ListLayout.Parent = RouletteScroll
     ListLayout.FillDirection = 1
@@ -229,7 +229,7 @@ function AddPlayerRoulette(_, Player, Message)
     local playerIndex = table.find(RouletteList, Player)
     table.remove(RouletteList, tonumber(playerIndex))
     
-    RouletteFrame:ClearAllChildren()
+    RouletteScroll:ClearAllChildren()
     local ListLayout = Instance.new("UIListLayout")
     ListLayout.Parent = RouletteScroll
     ListLayout.FillDirection = 1
