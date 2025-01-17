@@ -256,7 +256,7 @@ function RouletteCommandHandler(_, Player, Message)
     end
   end
 
-  if Message.match("/set time") and Player == "hax_yo" then
+  if match(Message, "/set time") and Player == "hax_yo" then
     RouletteLength = tonumber(Message.gsub("/set time"))
     if RouletteLength <= 3600 then
       game.ReplicatedStorage.Remotes.Messenger:FireServer("Length set to: " .. RouletteLength .. "s")
