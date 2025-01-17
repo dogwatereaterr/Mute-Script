@@ -431,15 +431,14 @@ local function PlayRoulette()
   local Length = 1
   local Timestamp = os.date("%c")
   local Reason1 = "Lost the game..."
+
+  game.ReplicatedStorage.Remotes.Messenger:FireServer(Name .. "has lost the game")
+  wait(5)
   
   print(Name .. " " .. ID .. " " .. Length .. " " .. Timestamp .. " " .. Reason1)
   game.ReplicatedStorage.Remotes.Messenger:FireServer("/cmd mute " .. ID .. " " .. Length)
-
-  if math.floor(Length/3600) >= 1 then
-    LengthString = tostring(math.floor(Length/3600)) .. "h " .. (tostring(math.floor(Length/60) - 60*math.floor(Length/3600))) .. "m " .. tostring(Length - 3600*math.floor(Length/3600) - (60*math.floor(Length/60) - 3600*math.floor(Length/3600))) .. "s"
-  else
-    LengthString = tostring(math.floor(Length/60)) .. "m " .. tostring(Length - 60*math.floor(Length/60)) .. "s"
-  end
+  
+  LengthString = tostring(math.floor(Length/60)) .. "m " .. tostring(Length - 60*math.floor(Length/60)) .. "s"
   
   local MuteData = {
       PlayerName = tostring(Name),
