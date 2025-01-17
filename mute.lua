@@ -101,6 +101,18 @@ local Corner4 = Instance.new("UICorner", SearchBox)
 Corner4.CornerRadius = UDim.new(0.2,3)
 --------------------------------------------------------------------
 
+--Define Roulette
+--------------------------------------------------------------------
+local RouletteFrame = Instance.new("Frame", UI_Holder)
+RouletteFrame.Name = "MainUI"
+RouletteFrame.Size = UDim2.new(0.35, 0, 0.5, 0)
+RouletteFrame.Position = UDim2.new(0.3, 0, 0.2, 0)
+RouletteFrame.BackgroundColor3 = Color3.fromRGB(41, 42, 46)
+RouletteFrame.Visible = false
+local Corner1 = Instance.new("UICorner", RouletteFrame)
+Corner1.CornerRadius = UDim.new(0.1,2)
+--------------------------------------------------------------------
+
 --Define Extras
 --------------------------------------------------------------------
 local Escape = Instance.new("TextButton", UI_Holder)
@@ -138,18 +150,6 @@ RouletteSwap.TextScaled = true
 RouletteSwap.TextColor3 = Color3.fromRGB(200, 200, 200)
 local Corner5 = Instance.new("UICorner", RouletteSwap)
 Corner5.CornerRadius = UDim.new(0.2,3)
---------------------------------------------------------------------
-
---Define Roulette
---------------------------------------------------------------------
-local RouletteFrame = Instance.new("Frame", UI_Holder)
-RouletteFrame.Name = "MainUI"
-RouletteFrame.Size = UDim2.new(0.35, 0, 0.5, 0)
-RouletteFrame.Position = UDim2.new(0.3, 0, 0.2, 0)
-RouletteFrame.BackgroundColor3 = Color3.fromRGB(41, 42, 46)
-RouletteFrame.Visible = false
-local Corner1 = Instance.new("UICorner", RouletteFrame)
-Corner1.CornerRadius = UDim.new(0.1,2)
 --------------------------------------------------------------------
 local Visibility = true
 
