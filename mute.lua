@@ -111,6 +111,24 @@ RouletteFrame.BackgroundColor3 = Color3.fromRGB(41, 42, 46)
 RouletteFrame.Visible = false
 local Corner1 = Instance.new("UICorner", RouletteFrame)
 Corner1.CornerRadius = UDim.new(0.1,2)
+
+local RouletteScroll = Instance.new("ScrollingFrame", RouletteFrame)
+RouletteScroll.Size = UDim2.new(0.872, 0, 0.75, 0)
+RouletteScroll.Position = UDim2.new(0.1, 0, 0.221, 0)
+RouletteScroll.Transparency = 1
+RouletteScroll.ScrollingDirection = 2
+
+local RouletteAccept = Instance.new("TextBox", RouletteFrame)
+RouletteAccept.Name = "Entry"
+RouletteAccept.Size = UDim2.new(0.875, 0, 0.15, 0)
+RouletteAccept.Position = UDim2.new(0.07, 0, 0.05, 0)
+RouletteAccept.BackgroundColor3 =Color3.fromRGB(90,90,90)
+RouletteAccept.TextColor3 = Color3.fromRGB(150, 150, 150)
+RouletteAccept.Text = ""
+RouletteAccept.PlaceholderText = "Search..."
+RouletteAccept.TextScaled = true
+local Corner4 = Instance.new("UICorner", RouletteAccept)
+Corner4.CornerRadius = UDim.new(0.2,3)
 --------------------------------------------------------------------
 
 --Define Extras
@@ -177,6 +195,61 @@ function Refresh()
     DataBox.Text = "Player: " ..PlayerMuteData["PlayerName"] .. "(" .. PlayerMuteData["PlayerID"] .. ")\nDate: " .. PlayerMuteData["Date"] .. "\nLength: " .. PlayerMuteData["Time"] .. "\nReason: " .. PlayerMuteData["Reason"]
     HistoryScroll.AutomaticCanvasSize = 3
   end
+end
+
+function AddPlayerRoulette(_, Player, Message)
+  if Message == "/join" then
+    table.insert(RouletteList, Player)
+    
+    HistoryScroll:ClearAllChildren()
+    local ListLayout = Instance.new("UIListLayout")
+    ListLayout.Parent = RouletteScroll
+    ListLayout.FillDirection = 1
+    ListLayout.Padding = UDim.new(0.01, 0)
+    
+    for _, Participant in RouletteList do
+      local Holder = Instance.new("Frame", RouletteScroll)
+      Holder.Size = UDim2.new(0.94, 0, 0.17, 0)
+      Holder.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+      local Corner = Instance.new("UICorner", Holder)
+      Corner.CornerRadius = UDim.new(0.3, 0)
+      
+      local DataBox = Instance.new("TextLabel", Holder)
+      DataBox.Size = UDim2.new(1, 0, 0.95, 0)
+      DataBox.TextScaled = true
+      DataBox.RichText = true
+      DataBox.BackgroundTransparency = 1
+      DataBox.TextColor3 = Color3.fromRGB(150, 150, 150)
+      DataBox.Text = Participant.Name
+      HistoryScroll.AutomaticCanvasSize = 3
+    end
+  else if Message == "/remove" and table.find(RouletteList, Player) then
+    table.remove(RouletteList, Player)
+    
+    HistoryScroll:ClearAllChildren()
+    local ListLayout = Instance.new("UIListLayout")
+    ListLayout.Parent = RouletteScroll
+    ListLayout.FillDirection = 1
+    ListLayout.Padding = UDim.new(0.01, 0)
+    
+    for _, Participant in RouletteList do
+      local Holder = Instance.new("Frame", RouletteScroll)
+      Holder.Size = UDim2.new(0.94, 0, 0.17, 0)
+      Holder.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+      local Corner = Instance.new("UICorner", Holder)
+      Corner.CornerRadius = UDim.new(0.3, 0)
+      
+      local DataBox = Instance.new("TextLabel", Holder)
+      DataBox.Size = UDim2.new(1, 0, 0.95, 0)
+      DataBox.TextScaled = true
+      DataBox.RichText = true
+      DataBox.BackgroundTransparency = 1
+      DataBox.TextColor3 = Color3.fromRGB(150, 150, 150)
+      DataBox.Text = Participant.Name
+      HistoryScroll.AutomaticCanvasSize = 3
+    end
+  end
+  
 end
 
 local function Search()
