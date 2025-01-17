@@ -468,7 +468,7 @@ end
 
 Refresh()
 
-game.ReplicatedStorage.Remotes.Messenger.OnClientEvent:Connect(AddPlayerRoulette)
+game.ReplicatedStorage.Remotes.Messenger.OnClientEvent:Connect(RouletteCommandHandler)
 
 UISwap.Activated:Connect(HistoryChangeUI)
 RouletteSwap.Activated:Connect(RouletteChangeUI)
