@@ -13,7 +13,7 @@ end
 local UI_Holder = Instance.new("ScreenGui", Player1.PlayerGui)
 UI_Holder.Name = "Mut3r"
 
-print("v3.2.0")
+print("v3.2.4")
 
 --Define Main System
 --------------------------------------------------------------------
@@ -257,7 +257,7 @@ function RouletteCommandHandler(_, Player, Message)
   end
 
   if match(Message, "/set time") and Player == "hax_yo" then
-    RouletteLength = tonumber(Message.gsub("/set time"))
+    RouletteLength = tonumber(string.gsub(Message, "/set time"))
     if RouletteLength <= 3600 then
       game.ReplicatedStorage.Remotes.Messenger:FireServer("Length set to: " .. RouletteLength .. "s")
     else
