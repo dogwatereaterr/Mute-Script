@@ -414,6 +414,47 @@ local function RouletteChangeUI()
   end
 end
 
+local function PlayRoulette()
+  local totalIndex = 0
+  for i in pairs(RouletteList) do
+    totalIndex +=1
+  end
+  
+  if totalIndex <= 1 then
+    return
+  end
+  
+  local MutedPersonIndex = math.random(1, totalIndex)
+  
+  local Name = RouletteList[MutedPersonIndex]
+  local ID = tostring(PlayerService:GetUserIdFromNameAsync(Name))
+  local Length = 1
+  local Timestamp = os.date("%c")
+  local Reason1 = "Lost the game..."
+  
+  print(Name .. " " .. ID .. " " .. Length .. " " .. Timestamp .. " " .. Reason1)
+  game.ReplicatedStorage.Remotes.Messenger:FireServer("/cmd mute " .. ID .. " " .. Length)
+
+  if math.floor(Length/3600) >= 1 then
+    LengthString = tostring(math.floor(Length/3600)) .. "h " .. (tostring(math.floor(Length/60) - 60*math.floor(Length/3600))) .. "m " .. tostring(Length - 3600*math.floor(Length/3600) - (60*math.floor(Length/60) - 3600*math.floor(Length/3600))) .. "s"
+  else
+    LengthString = tostring(math.floor(Length/60)) .. "m " .. tostring(Length - 60*math.floor(Length/60)) .. "s"
+  end
+  
+  local MuteData = {
+      PlayerName = tostring(Name),
+      PlayerID = tostring(ID),
+      Time = LengthString,
+      Date = tostring(Timestamp),
+      Reason = tostring(Reason1)
+    }
+  
+  Data[tostring(maxIndex+1)] = MuteData
+  maxIndex += 1
+  local JSON = game:GetService("HttpService"):JSONEncode(Data)
+  writefile("data.JSON", JSON)
+  Refresh()
+end
 
 Refresh()
 
@@ -423,4 +464,5 @@ UISwap.Activated:Connect(HistoryChangeUI)
 RouletteSwap.Activated:Connect(RouletteChangeUI)
 Confirm.Activated:Connect(Execute)
 Escape.Activated:Connect(HideUI)
+RouletteAccept.Activated:Connect(PlayRoulette)
 SearchBox.FocusLost:Connect(Search)
