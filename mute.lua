@@ -19,7 +19,7 @@ end
 local UI_Holder = Instance.new("ScreenGui", Player1.PlayerGui)
 UI_Holder.Name = "Mut3r"
 
-print("v5.0.20")
+print("v5.0.22")
 
 --Define Main System
 --------------------------------------------------------------------
@@ -229,8 +229,8 @@ end
 
 function standHandler(Player)
   wait(1)
-  local DealerSum = listHandler("sum", Hands[Player]["Dealer"])
-  local PlayerSum = listHandler("sum", Hands[Player]["Players"])
+  local DealerSum = tonumber(listHandler("sum", Hands[Player]["Dealer"]))
+  local PlayerSum = tonumber(listHandler("sum", Hands[Player]["Players"]))
 
   local DealerHand = listHandler("strconv", Hands[Player]["Dealer"])
   local PlayerHand = listHandler("strconv", Hands[Player]["Players"])
