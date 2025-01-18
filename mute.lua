@@ -229,11 +229,11 @@ end
 
 function standHandler()
   wait(1)
-  local DealerSum = listHandler(sum, Hands[Player]["Dealer"])
-  local PlayerSum = listHandler(sum, Hands[Player]["Players"])
+  local DealerSum = listHandler("sum", Hands[Player]["Dealer"])
+  local PlayerSum = listHandler("sum", Hands[Player]["Players"])
 
-  local DealerHand = listHandler(strconv, Hands[Player]["Dealer"])
-  local PlayerHand = listHandler(strconv, Hands[Player]["Players"])
+  local DealerHand = listHandler("strconv", Hands[Player]["Dealer"])
+  local PlayerHand = listHandler("strconv", Hands[Player]["Players"])
 
   if DealerHand >= 17 and PlayerHand > DealerHand then
     game.ReplicatedStorage.Remotes.Messenger:FireServer(Player .. " won blackjack!")
@@ -323,13 +323,16 @@ local function RouletteCommandHandler(_, Player, Message)
       Players = {math.random(1,11), math.random(1,11)},
     }
 
-    local DealerSum = listHandler(sum, Hands[Player]["Dealer"])
-    local PlayerSum = listHandler(sum, Hands[Player]["Players"])
+    local DealerSum = listHandler("sum", Hands[Player]["Dealer"])
+    local PlayerSum = listHandler("sum", Hands[Player]["Players"])
 
-    local DealerHand = listHandler(strconv, Hands[Player]["Dealer"])
-    local PlayerHand = listHandler(strconv, Hands[Player]["Players"])
+    local DealerHand = listHandler("strconv", Hands[Player]["Dealer"])
+    local PlayerHand = listHandler("strconv", Hands[Player]["Players"])
 
-    game.ReplicatedStorage.Remotes.Messenger:FireServer("Dealer's Hand: " .. DealerHand .. " || " .. Player .. [['s Hand: ]] .. PlayerHand)
+    --game.ReplicatedStorage.Remotes.Messenger:FireServer("Dealer's Hand: " .. DealerHand .. " || " .. Player .. [['s Hand: ]] .. PlayerHand)
+    game.ReplicatedStorage.Remotes.Messenger:FireServer([[
+ Dealer's Hand: ]] .. DealerHand .. [[
+]] .. Player .. [['s Hand: ]] .. PlayerHand)
 
     wait(1)
 
@@ -361,11 +364,11 @@ local function RouletteCommandHandler(_, Player, Message)
     wait(1)
     table.insert(Hands[Players], math.random(1,11))
 
-    local DealerSum = listHandler(sum, Hands[Player]["Dealer"])
-    local PlayerSum = listHandler(sum, Hands[Player]["Players"])
+    local DealerSum = listHandler("sum", Hands[Player]["Dealer"])
+    local PlayerSum = listHandler("sum", Hands[Player]["Players"])
 
-    local DealerHand = listHandler(strconv, Hands[Player]["Dealer"])
-    local PlayerHand = listHandler(strconv, Hands[Player]["Players"])
+    local DealerHand = listHandler("strconv", Hands[Player]["Dealer"])
+    local PlayerHand = listHandler("strconv", Hands[Player]["Players"])
     
       
     game.ReplicatedStorage.Remotes.Messenger:FireServer("Dealer's Hand: " .. DealerHand .. " || " .. Player .. [['s Hand: ]] .. PlayerHand)
