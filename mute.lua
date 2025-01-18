@@ -316,7 +316,7 @@ local function RouletteCommandHandler(_, Player, Message)
 
     Hands[Player] = {
       Dealer = {math.random(1,11), math.random(1,11)},
-      Players = {math.random(1,11), math.random(1,11)}
+      Players = {math.random(1,11), math.random(1,11)},
     }
 
     local DealerSum = listHandler(sum, Hands[Player]["Dealer"])
