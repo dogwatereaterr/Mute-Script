@@ -290,10 +290,10 @@ local function RouletteCommandHandler(_, Player, Message)
   
   if Message:match("/createsave") and not playerStats[Player] then
     local playerSave = {
-      Seconds = 100
-      GamesPlayed = 0
-      GamesWon = 0
-      GamesLost = 0
+      Seconds = 100,
+      GamesPlayed = 0,
+      GamesWon = 0,
+      GamesLost = 0,
     }
     
     playerStats[Player] = playerSave
