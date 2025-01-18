@@ -176,7 +176,10 @@ local Corner5 = Instance.new("UICorner", RouletteSwap)
 Corner5.CornerRadius = UDim.new(0.2,3)
 --------------------------------------------------------------------
 local Visibility = true
+local bjActive = false
+local Hands = {}
 local RouletteLength = 1
+local betAmounts = {}
 
 
 --Define Functions
@@ -204,6 +207,55 @@ function Refresh()
   end
 end
 
+function listSum(method, list)
+  if method == "sum" then
+    local Sum = 0
+    for i,v in pairs(list) do
+      Sum = Sum+v
+    end
+    return Sum
+  end
+
+  if method == "strconv" then
+    local string = ""
+    for i,v in pairs(list) do
+      string = string .. v .. " "
+      return string
+    end
+  end
+end
+
+function standHandler()
+  local DealerSum = listHandler(sum, Hands[Player]["Dealer"])
+  local PlayerSum = listHandler(sum, Hands[Player]["Players"])
+
+  local DealerHand = listHandler(strconv, Hands[Player]["Dealer"])
+  local PlayerHand = listHandler(strconv, Hands[Player]["Players"])
+
+  if DealerHand >= 17 and PlayerHand > DealerHand then
+    game.ReplicatedStorage.Remotes.Messenger:FireServer(Player .. " won blackjack!")
+    playerStats[Player]["Seconds"] += 2*betAmounts[Player]
+
+    local JSON = game:GetService("HttpService"):JSONEncode(playerStats)
+    writefile("playerStats.JSON",JSON)
+    bjActive = false
+  end
+
+  if DealerHand >= 17 and PlayerHand < DealerHand then
+    game.ReplicatedStorage.Remotes.Messenger:FireServer(Player .. " lost blackjack...")
+    bjActive = false
+  end
+
+  if DealerHand >= 17 and PlayerHand == DealerHand then
+    game.ReplicatedStorage.Remotes.Messenger:FireServer(Player .. " didn't lose, but they didnt win.")
+  end
+
+  if DealerHand >= 17 then
+    table.insert(Hands[Player]["Dealer"], math.random(1,11))
+    standHandler()
+  end
+end
+
 local function RouletteCommandHandler(_, Player, Message)
   
   if Message:match("/helper") then
@@ -216,21 +268,126 @@ local function RouletteCommandHandler(_, Player, Message)
     end
     
     if newMSG == "" then
-      game.ReplicatedStorage.Remotes.Messenger:FireServer([[Commands are:
+      game.ReplicatedStorage.Remotes.Messenger:FireServer([[
+        Commands are:
         /join: Joins the mute roulette lobby.
         /leave: Exits the mute roulette lobby.
         /get [stat]: Tells you how much [stat] you have
-        /help (command): Tells you about commands
-        (/help with command specified must be a command with parameters)]])
+        /blackjack [seconds]: Risks anamount of seconds on blackjack.
+        /helper (command): Tells you about commands
+        (/helper with command specified must have parameters)]])
       return
     end
     
     if newMSG == "get" then
       game.ReplicatedStorage.Remotes.Messenger:FireServer("/get [stat]: Tells you how much stat you have. Current valid paramaters are: Seconds (Unusable), wins, losses, played.")
     end
-    
+
+    if newMSG == "blackjack" then
+      game.ReplicatedStorage.Remotes.Messenger:FireServer("/blackjack [seconds]: Risks an amount of seconds on blackjack. Your seconds: " .. playerStats[Player][Seconds])
+    end
   end
-  
+
+  if Message:match("/blackjack") then
+    if not playerStats[Player] then
+      game.ReplicatedStorage.Remotes.Messenger:FireServer("Couldnt find save for " .. Player .. " Please run /createsave.")
+      return
+    end
+
+    if bjActive then
+      game.ReplicatedStorage.Remotes.Messenger:FireServer("You are already playing a round of blackjack")
+    end
+      
+    
+    local bet = string.gsub(Message, "/blackjack ", "")
+    betAmounts[Player] = bet
+      
+    if betAmount > playerStats[Player][Seconds] then
+      game.ReplicatedStorage.Remotes.Messenger:FireServer("You don't have that many seconds")
+      return
+    end
+
+    bjActive = true
+
+    playerStats[Player]["Seconds"] -= betAmounts[Player]
+
+    local JSON = game:GetService("HttpService"):JSONEncode(playerStats)
+    writefile("playerStats.JSON",JSON)
+
+    Hands[Player] = {
+      Dealer = {math.random(1,11), math.random(1,11)}
+      Players = {math.random(1,11), math.random(1,11)}
+    }
+
+    local DealerSum = listHandler(sum, Hands[Player]["Dealer"])
+    local PlayerSum = listHandler(sum, Hands[Player]["Players"])
+
+    local DealerHand = listHandler(strconv, Hands[Player]["Dealer"])
+    local PlayerHand = listHandler(strconv, Hands[Player]["Players"])
+
+    game.ReplicatedStorage.Remotes.Messenger:FireServer([[
+Dealer's Hand: ]] .. DealerHand .. [[
+]] .. Player .. [['s Hand: ]] .. PlayerHand)
+
+    wait(1)
+
+    if DealerSum == 21 and not PlayerSum == 21 then
+      game.ReplicatedStorage.Remotes.Messenger:FireServer("Dealer scored blackjack. Sorry " .. Player .. ".")
+      playerStats[Player]["Seconds"] -= betAmounts[Player]
+
+      local JSON = game:GetService("HttpService"):JSONEncode(playerStats)
+      writefile("playerStats.JSON",JSON)
+      bjActive = false
+    end
+
+    if DealerSum == 21 and PlayerSum == 21 then
+      game.ReplicatedStorage.Remotes.Messenger:FireServer("You both scored blackjack. At least you didn't lose, " .. Player .. ".")
+      bjActive = false
+    end
+
+    if not DealerSum == 21 and PlayerSum == 21 then
+      game.ReplicatedStorage.Remotes.Messenger:FireServer("You scored blackjack! Insane, " .. Player .. "!")
+      playerStats[Player]["Seconds"] += 2.5*betAmounts[Player]
+
+      local JSON = game:GetService("HttpService"):JSONEncode(playerStats)
+      writefile("playerStats.JSON",JSON)
+      bjActive = false
+    end
+  end
+
+  if Message == "/hit" and bjActive then
+    table.insert(Hands[Players], math.random(1,11))
+
+    local DealerSum = listHandler(sum, Hands[Player]["Dealer"])
+    local PlayerSum = listHandler(sum, Hands[Player]["Players"])
+
+    local DealerHand = listHandler(strconv, Hands[Player]["Dealer"])
+    local PlayerHand = listHandler(strconv, Hands[Player]["Players"])
+    
+      
+    game.ReplicatedStorage.Remotes.Messenger:FireServer([[
+Dealer's Hand: ]] .. DealerHand .. [[
+]] .. Player .. [['s Hand: ]] .. PlayerHand)
+
+    if PlayerSum == 21 then
+      game.ReplicatedStorage.Remotes.Messenger:FireServer("Sigma. You won " .. Player .. ".")
+      playerStats[Player]["Seconds"] += 2*betAmounts[Player]
+
+      local JSON = game:GetService("HttpService"):JSONEncode(playerStats)
+      writefile("playerStats.JSON",JSON)
+      bjActive = false
+      return
+    end
+
+    if PlayerSum > 21 then
+      game.ReplicatedStorage.Remotes.Messenger:FireServer("Common L. Sorry " .. Player .. ".")
+    end
+  end
+
+  if Message == "/stand" and bjActive then
+    standHandler()
+  end
+    
   if Message == "/join" and not table.find(RouletteList["Room1"], Player) then
     if not playerStats[Player] then
       game.ReplicatedStorage.Remotes.Messenger:FireServer("Couldnt find save for " .. Player .. " Please run /createsave.")
