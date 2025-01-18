@@ -235,7 +235,7 @@ function standHandler(Player)
   local DealerHand = listHandler("strconv", Hands[Player]["Dealer"])
   local PlayerHand = listHandler("strconv", Hands[Player]["Players"])
 
-  if DealerHand >= 17 and PlayerSum > DealerSum then
+  if DealerSum >= 17 and PlayerSum > DealerSum then
     game.ReplicatedStorage.Remotes.Messenger:FireServer(Player .. " won blackjack!")
     playerStats[Player]["Seconds"] += 2*betAmounts[Player]
 
