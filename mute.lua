@@ -206,6 +206,10 @@ end
 
 local function RouletteCommandHandler(_, Player, Message)
   if Message == "/join" and not table.find(RouletteList["Room1"], Player) then
+    if not playerStats[Player] then
+      return
+    end
+    
     table.insert(RouletteList["Room1"], Player)
     
     RouletteScroll:ClearAllChildren()
@@ -261,7 +265,11 @@ local function RouletteCommandHandler(_, Player, Message)
   end
   
   if Message:match("/get") and playerStats[Player] then
+    if not playerStats[Player] then
+      return
+    end
     StatToCheck = string.gsub(Message, "/get ", "")
+    wait(3)
     if StatToCheck == "seconds" then
       game.ReplicatedStorage.Remotes.Messenger:FireServer(Player .. " has " .. playerStats[Player]["Seconds"] .. " seconds.")
     end
@@ -506,6 +514,8 @@ local function PlayRoulette()
   print(maxIndex)
   Data[tostring(maxIndex)] = MuteData
   local JSON = game:GetService("HttpService"):JSONEncode(Data)
+  local PlayerJSONData = game:GetService("HttpService"):JSONEncode(playerStats)
+  writefile("playerStats.JSON", PlayerJSONData)
   writefile("data.JSON", JSON)
   Refresh()
   game.ReplicatedStorage.Remotes.Messenger:FireServer("/cmd mute " .. ID .. " " .. Length)
