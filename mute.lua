@@ -19,7 +19,7 @@ end
 local UI_Holder = Instance.new("ScreenGui", Player1.PlayerGui)
 UI_Holder.Name = "Mut3r"
 
-print("v5.0.10")
+print("v5.0.11")
 
 --Define Main System
 --------------------------------------------------------------------
@@ -227,7 +227,7 @@ function listHandler(method, list)
   end
 end
 
-function standHandler()
+function standHandler(Player)
   wait(1)
   local DealerSum = listHandler("sum", Hands[Player]["Dealer"])
   local PlayerSum = listHandler("sum", Hands[Player]["Players"])
@@ -389,7 +389,7 @@ local function RouletteCommandHandler(_, Player, Message)
   end
 
   if Message == "/stand" and bjActive then
-    standHandler()
+    standHandler(Player)
   end
     
   if Message == "/join" and not table.find(RouletteList["Room1"], Player) then
