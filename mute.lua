@@ -303,7 +303,7 @@ local function RouletteCommandHandler(_, Player, Message)
       return
     end
 
-    if bjActive[Player] then
+    if bjActive[Player] == true then
       game.ReplicatedStorage.Remotes.Messenger:FireServer("You are already playing a round of blackjack")
       return
     end
@@ -316,7 +316,7 @@ local function RouletteCommandHandler(_, Player, Message)
       return
     end
 
-    bjActive[player] = true
+    bjActive[Player] = true
 
     playerStats[Player]["Seconds"] -= betAmounts[Player]
 
