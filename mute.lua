@@ -296,6 +296,7 @@ local function RouletteCommandHandler(_, Player, Message)
   end
 
   if Message:match("^/blackjack") then
+    print(bjActive[Player])
     wait(1)
     if not playerStats[Player] then
       game.ReplicatedStorage.Remotes.Messenger:FireServer("Couldnt find save for " .. Player .. " Please run /createsave.")
