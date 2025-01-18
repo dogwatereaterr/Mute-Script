@@ -2,6 +2,7 @@ local Player1 = game.Players.LocalPlayer
 local PlayerService = game:GetService("Players")
 
 local Data = game:GetService("HttpService"):JSONDecode(readfile("Data.JSON"))
+local playerStats = game:GetService("HttpService"):JSONDecode(readfile("playerStats.JSON"))
 local RouletteList = {}
 
 local maxIndex = 0
@@ -13,7 +14,7 @@ end
 local UI_Holder = Instance.new("ScreenGui", Player1.PlayerGui)
 UI_Holder.Name = "Mut3r"
 
-print("v3.2.7")
+print("v3.2.4")
 
 --Define Main System
 --------------------------------------------------------------------
@@ -256,14 +257,27 @@ local function RouletteCommandHandler(_, Player, Message)
     end
   end
 
-  if Message:match("/set time ") and Player == "hax_yo" then
-    local muteLength = string.gsub(Message, "/set time ", "")
-    RouletteLength = tonumber(muteLength)
+  if Message:match("/set time") and Player == "hax_yo" then
+    RouletteLength = tonumber(string.gsub(Message, "/set time", ""))
     if RouletteLength <= 3600 then
       game.ReplicatedStorage.Remotes.Messenger:FireServer("Length set to: " .. RouletteLength .. "s")
     else
       game.ReplicatedStorage.Remotes.Messenger:FireServer("Invalid Length")
     end
+  end
+  
+  if Message:match("/createsave") and not playerStats[Player] then
+    local playerSave = {
+      Seconds = 100
+      GamesPlayed = 0
+      GamesWon = 0
+      GamesLost = 0
+    }
+    
+    playerStats[Player] = playerSave
+    local JSON = game:GetService("HttpService"):JSONEncode(playerStats)
+    writefile("playerStats.JSON",JSON)
+    game.ReplicatedStorage.Remotes.Messenger:FireServer("Created new save for: " .. Player)
   end
 end
 
@@ -459,7 +473,8 @@ local function PlayRoulette()
       Reason = tostring(Reason1)
     }
   
-  maxIndex += 1
+  maxIndex = maxIndex+1
+  print(maxIndex)
   Data[tostring(maxIndex)] = MuteData
   local JSON = game:GetService("HttpService"):JSONEncode(Data)
   writefile("data.JSON", JSON)
