@@ -19,7 +19,7 @@ end
 local UI_Holder = Instance.new("ScreenGui", Player1.PlayerGui)
 UI_Holder.Name = "Mut3r"
 
-print("v4.5.2")
+print("v5.0.1")
 
 --Define Main System
 --------------------------------------------------------------------
@@ -315,7 +315,7 @@ local function RouletteCommandHandler(_, Player, Message)
     writefile("playerStats.JSON",JSON)
 
     Hands[Player] = {
-      Dealer = {math.random(1,11), math.random(1,11)}
+      Dealer = {math.random(1,11), math.random(1,11)},
       Players = {math.random(1,11), math.random(1,11)}
     }
 
