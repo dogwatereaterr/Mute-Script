@@ -19,7 +19,7 @@ end
 local UI_Holder = Instance.new("ScreenGui", Player1.PlayerGui)
 UI_Holder.Name = "Mut3r"
 
-print("v4.1.2")
+print("v4.1.1")
 
 --Define Main System
 --------------------------------------------------------------------
@@ -206,7 +206,7 @@ end
 
 local function RouletteCommandHandler(_, Player, Message)
   if Message == "/join" and not table.find(RouletteList, Player) then
-    table.insert(RouletteList["Room1"], Player)
+    table.insert(RouletteList["0"], Player)
     
     RouletteScroll:ClearAllChildren()
     local ListLayout = Instance.new("UIListLayout")
@@ -228,7 +228,6 @@ local function RouletteCommandHandler(_, Player, Message)
       DataBox.BackgroundTransparency = 1
       DataBox.TextColor3 = Color3.fromRGB(150, 150, 150)
       DataBox.Text = Participant
-      DataBox.TextXAlignment = 2
       RouletteScroll.AutomaticCanvasSize = 3
     end
   end
@@ -257,12 +256,28 @@ local function RouletteCommandHandler(_, Player, Message)
       DataBox.BackgroundTransparency = 1
       DataBox.TextColor3 = Color3.fromRGB(150, 150, 150)
       DataBox.Text = Participant
-      DataBox.TextXAlignment = 2
       RouletteScroll.AutomaticCanvasSize = 3
     end
   end
   
-  
+  if Message:match("/get") and playerStats[Player] then
+    StatToCheck = string.gsub(Message, "/get ", "")
+    if StatToCheck == "seconds" then
+      game.ReplicatedStorage.Remotes.Messenger(Player .. " has " .. playerStats[Player]["Seconds"] .. " seconds.")
+    end
+    
+    if StatToCheck == "wins" then
+      game.ReplicatedStorage.Remotes.Messenger(Player .. " has " .. playerStats[Player]["GamesWon"] .. " wins.")
+    end
+    
+    if StatToCheck == "losses" then
+      game.ReplicatedStorage.Remotes.Messenger(Player .. " has " .. playerStats[Player]["GamesLost"] .. " losses.")
+    end
+    
+    if StatToCheck == "played" then
+      game.ReplicatedStorage.Remotes.Messenger(Player .. " has " .. playerStats[Player]["GamesPlayed"] .. " games played.")
+    end
+  end
 
   if Message:match("/set time") and Player == "hax_yo" then
     RouletteLength = tonumber(string.gsub(Message, "/set time", ""))
@@ -275,10 +290,10 @@ local function RouletteCommandHandler(_, Player, Message)
   
   if Message:match("/createsave") and not playerStats[Player] then
     local playerSave = {
-      Seconds = 100,
-      GamesPlayed = 0,
-      GamesWon = 0,
-      GamesLost = 0,
+      Seconds = 100
+      GamesPlayed = 0
+      GamesWon = 0
+      GamesLost = 0
     }
     
     playerStats[Player] = playerSave
@@ -450,7 +465,7 @@ end
 
 local function PlayRoulette()
   local totalIndex = 0
-  for i in pairs(RouletteList["Room1"]) do
+  for i in pairs(RouletteList[0]) do
     totalIndex +=1
   end
   
@@ -488,7 +503,6 @@ local function PlayRoulette()
   writefile("data.JSON", JSON)
   Refresh()
   game.ReplicatedStorage.Remotes.Messenger:FireServer("/cmd mute " .. ID .. " " .. Length)
-  RouletteList["Room1"] = {}
 end
 
 Refresh()
