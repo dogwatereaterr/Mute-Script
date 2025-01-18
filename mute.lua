@@ -311,6 +311,11 @@ local function RouletteCommandHandler(_, Player, Message)
     
     local bet = string.gsub(Message, "/blackjack ", "")
     betAmounts[Player] = tonumber(bet)
+
+    if betAmounts[Player] == nil then
+      game.ReplicatedStorage.Remotes.Messenger:FireServer("Please enter an amount you would like to bet.")
+      return
+    end
       
     if betAmounts[Player] > tonumber(playerStats[Player]["Seconds"]) then
       game.ReplicatedStorage.Remotes.Messenger:FireServer("You don't have that many seconds")
