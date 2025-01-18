@@ -3,7 +3,12 @@ local PlayerService = game:GetService("Players")
 
 local Data = game:GetService("HttpService"):JSONDecode(readfile("Data.JSON"))
 local playerStats = game:GetService("HttpService"):JSONDecode(readfile("playerStats.JSON"))
-local RouletteList = {}
+local RouletteList = {
+  "0" : {},
+  "60" : {},
+  "300" :{}
+  
+}
 
 local maxIndex = 0
 for i in pairs(Data) do
@@ -14,7 +19,7 @@ end
 local UI_Holder = Instance.new("ScreenGui", Player1.PlayerGui)
 UI_Holder.Name = "Mut3r"
 
-print("v4.0.1")
+print("v4.1.0")
 
 --Define Main System
 --------------------------------------------------------------------
@@ -201,7 +206,7 @@ end
 
 local function RouletteCommandHandler(_, Player, Message)
   if Message == "/join" and not table.find(RouletteList, Player) then
-    table.insert(RouletteList, Player)
+    table.insert(RouletteList["0"], Player)
     
     RouletteScroll:ClearAllChildren()
     local ListLayout = Instance.new("UIListLayout")
@@ -228,7 +233,7 @@ local function RouletteCommandHandler(_, Player, Message)
     end
   end
   
-  if Message == "/remove" and table.find(RouletteList, Player) then
+  if Message == "/leave" and table.find(RouletteList, Player) then
     local playerIndex = table.find(RouletteList, Player)
     table.remove(RouletteList, tonumber(playerIndex))
     
@@ -256,6 +261,8 @@ local function RouletteCommandHandler(_, Player, Message)
       RouletteScroll.AutomaticCanvasSize = 3
     end
   end
+  
+  
 
   if Message:match("/set time") and Player == "hax_yo" then
     RouletteLength = tonumber(string.gsub(Message, "/set time", ""))
@@ -268,16 +275,16 @@ local function RouletteCommandHandler(_, Player, Message)
   
   if Message:match("/createsave") and not playerStats[Player] then
     local playerSave = {
-      Seconds = 100,
-      GamesPlayed = 0,
-      GamesWon = 0,
-      GamesLost = 0,
+      Seconds = 100
+      GamesPlayed = 0
+      GamesWon = 0
+      GamesLost = 0
     }
     
     playerStats[Player] = playerSave
     local JSON = game:GetService("HttpService"):JSONEncode(playerStats)
     writefile("playerStats.JSON",JSON)
-    wait(3)
+    wait(5)
     game.ReplicatedStorage.Remotes.Messenger:FireServer("Created new save for: " .. Player)
   end
 end
@@ -443,7 +450,7 @@ end
 
 local function PlayRoulette()
   local totalIndex = 0
-  for i in pairs(RouletteList) do
+  for i in pairs(RouletteList[0]) do
     totalIndex +=1
   end
   
@@ -481,7 +488,6 @@ local function PlayRoulette()
   writefile("data.JSON", JSON)
   Refresh()
   game.ReplicatedStorage.Remotes.Messenger:FireServer("/cmd mute " .. ID .. " " .. Length)
-  RouletteList = {}
 end
 
 Refresh()
