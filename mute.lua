@@ -19,7 +19,7 @@ end
 local UI_Holder = Instance.new("ScreenGui", Player1.PlayerGui)
 UI_Holder.Name = "Mut3r"
 
-print("v5.0.5")
+print("v5.0.7")
 
 --Define Main System
 --------------------------------------------------------------------
@@ -327,9 +327,7 @@ local function RouletteCommandHandler(_, Player, Message)
     local DealerHand = listHandler(strconv, Hands[Player]["Dealer"])
     local PlayerHand = listHandler(strconv, Hands[Player]["Players"])
 
-    game.ReplicatedStorage.Remotes.Messenger:FireServer([[
- Dealer's Hand: ]] .. DealerHand .. [[
-]] .. Player .. [['s Hand: ]] .. PlayerHand)
+    game.ReplicatedStorage.Remotes.Messenger:FireServer("Dealer's Hand: " .. DealerHand .. " || " .. Player .. [['s Hand: ]] .. PlayerHand)
 
     wait(1)
 
@@ -368,9 +366,7 @@ local function RouletteCommandHandler(_, Player, Message)
     local PlayerHand = listHandler(strconv, Hands[Player]["Players"])
     
       
-    game.ReplicatedStorage.Remotes.Messenger:FireServer([[
-Dealer's Hand: ]] .. DealerHand .. [[
-]] .. Player .. [['s Hand: ]] .. PlayerHand)
+    game.ReplicatedStorage.Remotes.Messenger:FireServer("Dealer's Hand: " .. DealerHand .. " || " .. Player .. [['s Hand: ]] .. PlayerHand)
 
     if PlayerSum == 21 then
       game.ReplicatedStorage.Remotes.Messenger:FireServer("Sigma. You won " .. Player .. ".")
