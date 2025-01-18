@@ -19,7 +19,7 @@ end
 local UI_Holder = Instance.new("ScreenGui", Player1.PlayerGui)
 UI_Holder.Name = "Mut3r"
 
-print("v4.2.4")
+print("v4.2.5")
 
 --Define Main System
 --------------------------------------------------------------------
@@ -242,7 +242,7 @@ local function RouletteCommandHandler(_, Player, Message)
     ListLayout.FillDirection = 1
     ListLayout.Padding = UDim.new(0.01, 0)
     
-    for _, Participant in RouletteList do
+    for _, Participant in RouletteList["Room1"] do
       local Holder = Instance.new("Frame", RouletteScroll)
       Holder.Size = UDim2.new(0.94, 0, 0.17, 0)
       Holder.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
@@ -280,7 +280,8 @@ local function RouletteCommandHandler(_, Player, Message)
   end
 
   if Message:match("/set time") and Player == "hax_yo" then
-    RouletteLength = tonumber(string.gsub(Message, "/set time", ""))
+    newMSG = string.gsub(Message, "/set time", "")
+    RouletteLength = tonumber(newMSG)
     if RouletteLength <= 3600 then
       game.ReplicatedStorage.Remotes.Messenger:FireServer("Length set to: " .. RouletteLength .. "s")
     else
@@ -475,7 +476,7 @@ local function PlayRoulette()
   
   local MutedPersonIndex = math.random(1, totalIndex)
   
-  local Name = RouletteList[MutedPersonIndex]
+  local Name = RouletteList["Room1"][MutedPersonIndex]
   local ID = tostring(PlayerService:GetUserIdFromNameAsync(Name))
   local Length = RouletteLength
   local Timestamp = os.date("%c")
