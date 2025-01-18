@@ -4,9 +4,9 @@ local PlayerService = game:GetService("Players")
 local Data = game:GetService("HttpService"):JSONDecode(readfile("Data.JSON"))
 local playerStats = game:GetService("HttpService"):JSONDecode(readfile("playerStats.JSON"))
 local RouletteList = {
-  "0" : {},
-  "60" : {},
-  "300" :{}
+  "0" = {},
+  "60" = {},
+  "300" = {}
   
 }
 
@@ -19,7 +19,7 @@ end
 local UI_Holder = Instance.new("ScreenGui", Player1.PlayerGui)
 UI_Holder.Name = "Mut3r"
 
-print("v4.1.0")
+print("v4.1.1")
 
 --Define Main System
 --------------------------------------------------------------------
