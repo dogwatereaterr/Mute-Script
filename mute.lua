@@ -234,7 +234,7 @@ local function RouletteCommandHandler(_, Player, Message)
   
   if Message == "/leave" and table.find(RouletteList, Player) then
     local playerIndex = table.find(RouletteList["Room1"], Player)
-    table.remove(RouletteList,["Room1"] tonumber(playerIndex))
+    table.remove(RouletteList["Room1"], tonumber(playerIndex))
     
     RouletteScroll:ClearAllChildren()
     local ListLayout = Instance.new("UIListLayout")
