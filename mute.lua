@@ -19,7 +19,7 @@ end
 local UI_Holder = Instance.new("ScreenGui", Player1.PlayerGui)
 UI_Holder.Name = "Mut3r"
 
-print("v5.0.4")
+print("v5.0.5")
 
 --Define Main System
 --------------------------------------------------------------------
@@ -207,7 +207,7 @@ function Refresh()
   end
 end
 
-function listSum(method, list)
+function listHandler(method, list)
   if method == "sum" then
     local Sum = 0
     for i,v in pairs(list) do
@@ -226,6 +226,7 @@ function listSum(method, list)
 end
 
 function standHandler()
+  wait(1)
   local DealerSum = listHandler(sum, Hands[Player]["Dealer"])
   local PlayerSum = listHandler(sum, Hands[Player]["Players"])
 
@@ -289,6 +290,7 @@ local function RouletteCommandHandler(_, Player, Message)
   end
 
   if Message:match("/blackjack") then
+    wait(1)
     if not playerStats[Player] then
       game.ReplicatedStorage.Remotes.Messenger:FireServer("Couldnt find save for " .. Player .. " Please run /createsave.")
       return
@@ -356,6 +358,7 @@ Dealer's Hand: ]] .. DealerHand .. [[
   end
 
   if Message == "/hit" and bjActive then
+    wait(1)
     table.insert(Hands[Players], math.random(1,11))
 
     local DealerSum = listHandler(sum, Hands[Player]["Dealer"])
@@ -705,6 +708,7 @@ local function PlayRoulette()
   Refresh()
   game.ReplicatedStorage.Remotes.Messenger:FireServer("/cmd mute " .. ID .. " " .. Length)
   RouletteList["Room1"] = {}
+  RouletteScroll:ClearAllChildren()
 end
 
 Refresh()
