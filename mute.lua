@@ -477,7 +477,7 @@ local function PlayRoulette()
   
   local MutedPersonIndex = math.random(1, totalIndex)
   
-  local Name = RouletteList[MutedPersonIndex]
+  local Name = RouletteList["Room1"][MutedPersonIndex]
   local ID = tostring(PlayerService:GetUserIdFromNameAsync(Name))
   local Length = RouletteLength
   local Timestamp = os.date("%c")
