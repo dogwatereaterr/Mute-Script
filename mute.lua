@@ -19,7 +19,7 @@ end
 local UI_Holder = Instance.new("ScreenGui", Player1.PlayerGui)
 UI_Holder.Name = "Mut3r"
 
-print("v4.4.0")
+print("v4.5.0")
 
 --Define Main System
 --------------------------------------------------------------------
@@ -205,6 +205,31 @@ function Refresh()
 end
 
 local function RouletteCommandHandler(_, Player, Message)
+  
+  if Message:match("/help") then
+    newMSG = string.gsub(Message, "/help", "")
+    newMSG = string.gsub(newMSG, " ", "")
+    
+    if not playerStats[Player]then
+      game.ReplicatedStorage.Remotes.Messenger:FireServer(Player ..". Please create a save by using the command /createsave to use any other commands.")
+    end
+    
+    if newMSG == "" then
+      game.ReplicatedStorage.Remotes.Messenger:FireServer([[Commands are:
+        /join: Joins the mute roulette lobby.
+        /leave: Exits the mute roulette lobby.
+        /get [stat]: Tells you how much [stat] you have
+        /help (command): Tells you about commands
+        (/help with command specified must be a command with parameters)]])
+      return
+    end
+    
+    if newMSG == "get" then
+      game.ReplicatedStorage.Remotes.Messenger:FireServer("/get [stat]: Tells you how much stat you have. Current valid paramaters are: Seconds (Unusable), wins, losses, played.")
+    end
+    
+  end
+  
   if Message == "/join" and not table.find(RouletteList["Room1"], Player) then
     if not playerStats[Player] then
       game.ReplicatedStorage.Remotes.Messenger:FireServer("Couldnt find save for " .. Player .. " Please run /createsave.")
@@ -228,7 +253,7 @@ local function RouletteCommandHandler(_, Player, Message)
       
       local DataBox = Instance.new("TextLabel", Holder)
       DataBox.Size = UDim2.new(1, 0, 0.8, 0)
-      DataBox.TextScaled = true   
+      DataBox.TextScaled = true
       DataBox.RichText = true
       DataBox.BackgroundTransparency = 1
       DataBox.TextColor3 = Color3.fromRGB(150, 150, 150)
