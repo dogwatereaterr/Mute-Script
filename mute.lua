@@ -291,7 +291,7 @@ local function RouletteCommandHandler(_, Player, Message)
     end
 
     if newMSG == "blackjack" then
-      game.ReplicatedStorage.Remotes.Messenger:FireServer("/blackjack [seconds]: Risks an amount of seconds on blackjack. Your seconds: " .. playerStats[Player][Seconds] .. ". Subcommands: /hit, /stand.")
+      game.ReplicatedStorage.Remotes.Messenger:FireServer("/blackjack [seconds]: Risks an amount of seconds on blackjack. Your seconds: " .. playerStats[Player]["Seconds"] .. ". Subcommands: /hit, /stand.")
     end
   end
 
@@ -310,12 +310,13 @@ local function RouletteCommandHandler(_, Player, Message)
     end
     
     local bet = string.gsub(Message, "/blackjack ", "")
-    betAmounts[Player] = tonumber(bet)
 
-    if betAmounts[Player] == nil then
+    if bet == nil then
       game.ReplicatedStorage.Remotes.Messenger:FireServer("Please enter an amount you would like to bet.")
       return
     end
+    
+    betAmounts[Player] = tonumber(bet)
       
     if betAmounts[Player] > tonumber(playerStats[Player]["Seconds"]) then
       game.ReplicatedStorage.Remotes.Messenger:FireServer("You don't have that many seconds")
