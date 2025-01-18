@@ -19,7 +19,7 @@ end
 local UI_Holder = Instance.new("ScreenGui", Player1.PlayerGui)
 UI_Holder.Name = "Mut3r"
 
-print("v5.0.8")
+print("v5.0.9")
 
 --Define Main System
 --------------------------------------------------------------------
@@ -208,6 +208,7 @@ function Refresh()
 end
 
 function listHandler(method, list)
+  print(method)
   if method == "sum" then
     local Sum = 0
     for i,v in pairs(list) do
