@@ -19,7 +19,7 @@ end
 local UI_Holder = Instance.new("ScreenGui", Player1.PlayerGui)
 UI_Holder.Name = "Mut3r"
 
-print("v5.0.1")
+print("v5.0.3")
 
 --Define Main System
 --------------------------------------------------------------------
@@ -302,7 +302,7 @@ local function RouletteCommandHandler(_, Player, Message)
     local bet = string.gsub(Message, "/blackjack ", "")
     betAmounts[Player] = bet
       
-    if betAmount > playerStats[Player][Seconds] then
+    if betAmounts[Player] > playerStats[Player]["Seconds"] then
       game.ReplicatedStorage.Remotes.Messenger:FireServer("You don't have that many seconds")
       return
     end
