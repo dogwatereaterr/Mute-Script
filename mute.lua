@@ -19,7 +19,7 @@ end
 local UI_Holder = Instance.new("ScreenGui", Player1.PlayerGui)
 UI_Holder.Name = "Mut3r"
 
-print("v4.5.0")
+print("v4.5.2")
 
 --Define Main System
 --------------------------------------------------------------------
@@ -206,9 +206,9 @@ end
 
 local function RouletteCommandHandler(_, Player, Message)
   
-  if Message:match("/help") then
+  if Message:match("/helper") then
     wait(2)
-    newMSG = string.gsub(Message, "/help", "")
+    newMSG = string.gsub(Message, "/helper", "")
     newMSG = string.gsub(newMSG, " ", "")
     
     if not playerStats[Player]then
