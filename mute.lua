@@ -19,7 +19,7 @@ end
 local UI_Holder = Instance.new("ScreenGui", Player1.PlayerGui)
 UI_Holder.Name = "Mut3r"
 
-print("v5.0.12")
+print("v5.0.13")
 
 --Define Main System
 --------------------------------------------------------------------
@@ -176,7 +176,7 @@ local Corner5 = Instance.new("UICorner", RouletteSwap)
 Corner5.CornerRadius = UDim.new(0.2,3)
 --------------------------------------------------------------------
 local Visibility = true
-local bjActive = false
+local bjActive = {}
 local Hands = {}
 local RouletteLength = 1
 local betAmounts = {}
@@ -265,7 +265,7 @@ local function RouletteCommandHandler(_, Player, Message)
     chatListener:Disconnect()
   end
   
-  if Message:match("/helper") then
+  if Message:match("^/helper") then
     wait(2)
     newMSG = string.gsub(Message, "/helper", "")
     newMSG = string.gsub(newMSG, " ", "")
@@ -291,21 +291,20 @@ local function RouletteCommandHandler(_, Player, Message)
     end
 
     if newMSG == "blackjack" then
-      game.ReplicatedStorage.Remotes.Messenger:FireServer("/blackjack [seconds]: Risks an amount of seconds on blackjack. Your seconds: " .. playerStats[Player][Seconds])
+      game.ReplicatedStorage.Remotes.Messenger:FireServer("/blackjack [seconds]: Risks an amount of seconds on blackjack. Your seconds: " .. playerStats[Player][Seconds] .. ". Subcommands: /hit, /stand.")
     end
   end
 
-  if Message:match("/blackjack") then
+  if Message:match("^/blackjack") then
     wait(1)
     if not playerStats[Player] then
       game.ReplicatedStorage.Remotes.Messenger:FireServer("Couldnt find save for " .. Player .. " Please run /createsave.")
       return
     end
 
-    if bjActive then
+    if bjActive[Player] then
       game.ReplicatedStorage.Remotes.Messenger:FireServer("You are already playing a round of blackjack")
     end
-      
     
     local bet = string.gsub(Message, "/blackjack ", "")
     betAmounts[Player] = tonumber(bet)
@@ -315,7 +314,7 @@ local function RouletteCommandHandler(_, Player, Message)
       return
     end
 
-    bjActive = true
+    bjActive[player] = true
 
     playerStats[Player]["Seconds"] -= betAmounts[Player]
 
@@ -327,8 +326,8 @@ local function RouletteCommandHandler(_, Player, Message)
       Players = {math.random(1,11), math.random(1,11)},
     }
 
-    local DealerSum = listHandler("sum", Hands[Player]["Dealer"])
-    local PlayerSum = listHandler("sum", Hands[Player]["Players"])
+    local DealerSum = tonumber(listHandler("sum", Hands[Player]["Dealer"]))
+    local PlayerSum = tonumber(listHandler("sum", Hands[Player]["Players"]))
 
     local DealerHand = listHandler("strconv", Hands[Player]["Dealer"])
     local PlayerHand = listHandler("strconv", Hands[Player]["Players"])
@@ -343,12 +342,12 @@ local function RouletteCommandHandler(_, Player, Message)
 
       local JSON = game:GetService("HttpService"):JSONEncode(playerStats)
       writefile("playerStats.JSON",JSON)
-      bjActive = false
+      bjActive[Player] = false
     end
 
     if DealerSum == 21 and PlayerSum == 21 then
       game.ReplicatedStorage.Remotes.Messenger:FireServer("You both scored blackjack. At least you didn't lose, " .. Player .. ".")
-      bjActive = false
+      bjActive[Player] = false
     end
 
     if not DealerSum == 21 and PlayerSum == 21 then
@@ -357,7 +356,7 @@ local function RouletteCommandHandler(_, Player, Message)
 
       local JSON = game:GetService("HttpService"):JSONEncode(playerStats)
       writefile("playerStats.JSON",JSON)
-      bjActive = false
+      bjActive[Player] = false
     end
   end
 
@@ -365,8 +364,8 @@ local function RouletteCommandHandler(_, Player, Message)
     wait(1)
     table.insert(Hands[Player]["Players"], math.random(1,11))
 
-    local DealerSum = listHandler("sum", Hands[Player]["Dealer"])
-    local PlayerSum = listHandler("sum", Hands[Player]["Players"])
+    local DealerSum = tonumber(listHandler("sum", Hands[Player]["Dealer"]))
+    local PlayerSum = tonumber(listHandler("sum", Hands[Player]["Players"]))
 
     local DealerHand = listHandler("strconv", Hands[Player]["Dealer"])
     local PlayerHand = listHandler("strconv", Hands[Player]["Players"])
@@ -380,12 +379,14 @@ local function RouletteCommandHandler(_, Player, Message)
 
       local JSON = game:GetService("HttpService"):JSONEncode(playerStats)
       writefile("playerStats.JSON",JSON)
-      bjActive = false
+      bjActive[Player] = false
       return
     end
 
     if PlayerSum > 21 then
       game.ReplicatedStorage.Remotes.Messenger:FireServer("Common L. Sorry " .. Player .. ".")
+      bjActive[Player] = false
+      return
     end
   end
 
@@ -453,7 +454,7 @@ local function RouletteCommandHandler(_, Player, Message)
     end
   end
   
-  if Message:match("/get") and playerStats[Player] then
+  if Message:match("^/get") and playerStats[Player] then
     if not playerStats[Player] then
       game.ReplicatedStorage.Remotes.Messenger:FireServer("Couldnt find save for " .. Player .. " Please run /createsave.")
       return
@@ -477,7 +478,7 @@ local function RouletteCommandHandler(_, Player, Message)
     end
   end
 
-  if Message:match("/set time") and Player == "hax_yo" then
+  if Message:match("^/set time") and Player == "hax_yo" then
     RouletteLength = tonumber(string.gsub(Message, "/set time", ""))
     if RouletteLength <= 3600 then
       game.ReplicatedStorage.Remotes.Messenger:FireServer("Length set to: " .. RouletteLength .. "s")
@@ -486,7 +487,7 @@ local function RouletteCommandHandler(_, Player, Message)
     end
   end
   
-  if Message:match("/createsave") and not playerStats[Player] then
+  if Message:match("^/createsave") and not playerStats[Player] then
     local playerSave = {
       Seconds = 100,
       GamesPlayed = 0,
