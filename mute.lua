@@ -205,7 +205,7 @@ function Refresh()
 end
 
 local function RouletteCommandHandler(_, Player, Message)
-  if Message == "/join" and not table.find(RouletteList, Player) then
+  if Message == "/join" and not table.find(RouletteList["Room1"], Player) then
     table.insert(RouletteList["Room1"], Player)
     
     RouletteScroll:ClearAllChildren()
