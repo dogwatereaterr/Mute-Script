@@ -19,7 +19,7 @@ end
 local UI_Holder = Instance.new("ScreenGui", Player1.PlayerGui)
 UI_Holder.Name = "Mut3r"
 
-print("v5.1.0")
+print("v5.1.1")
 
 --Define Main System
 --------------------------------------------------------------------
@@ -254,7 +254,7 @@ function standHandler(Player)
     game.ReplicatedStorage.Remotes.Messenger:FireServer(Player .. " didn't lose, but they didnt win.")
   end
 
-  if DealerSum >= 17 then
+  if DealerSum < 17 then
     table.insert(Hands[Player]["Dealer"], math.random(1,11))
     standHandler()
   end
@@ -348,7 +348,7 @@ local function RouletteCommandHandler(_, Player, Message)
 
     game.ReplicatedStorage.Remotes.Messenger:FireServer("Dealer's Hand: " .. DealerHand .. " || " .. Player .. [['s Hand: ]] .. PlayerHand)
 
-    wait(1)
+    wait(2)
 
     if DealerSum == 21 and not PlayerSum == 21 then
       game.ReplicatedStorage.Remotes.Messenger:FireServer("Dealer scored blackjack. Sorry " .. Player .. ".")
@@ -364,7 +364,7 @@ local function RouletteCommandHandler(_, Player, Message)
       bjActive[Player] = false
     end
 
-    if not DealerSum == 21 and PlayerSum == 21 then
+    if not DealerSum == 21 and PlayerSum == 21 or DealerSum > 21 then
       game.ReplicatedStorage.Remotes.Messenger:FireServer("You scored blackjack! Insane, " .. Player .. "!")
       playerStats[Player]["Seconds"] += 2.5*betAmounts[Player]
 
