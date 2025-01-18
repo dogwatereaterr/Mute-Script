@@ -263,19 +263,19 @@ local function RouletteCommandHandler(_, Player, Message)
   if Message:match("/get") and playerStats[Player] then
     StatToCheck = string.gsub(Message, "/get ", "")
     if StatToCheck == "seconds" then
-      game.ReplicatedStorage.Remotes.Messenger(Player .. " has " .. playerStats[Player]["Seconds"] .. " seconds.")
+      game.ReplicatedStorage.Remotes.Messenger:FireServer(Player .. " has " .. playerStats[Player]["Seconds"] .. " seconds.")
     end
     
     if StatToCheck == "wins" then
-      game.ReplicatedStorage.Remotes.Messenger(Player .. " has " .. playerStats[Player]["GamesWon"] .. " wins.")
+      game.ReplicatedStorage.Remotes.Messenger:FireServer(Player .. " has " .. playerStats[Player]["GamesWon"] .. " wins.")
     end
     
     if StatToCheck == "losses" then
-      game.ReplicatedStorage.Remotes.Messenger(Player .. " has " .. playerStats[Player]["GamesLost"] .. " losses.")
+      game.ReplicatedStorage.Remotes.Messenger:FireServer(Player .. " has " .. playerStats[Player]["GamesLost"] .. " losses.")
     end
     
     if StatToCheck == "played" then
-      game.ReplicatedStorage.Remotes.Messenger(Player .. " has " .. playerStats[Player]["GamesPlayed"] .. " games played.")
+      game.ReplicatedStorage.Remotes.Messenger:FireServer(Player .. " has " .. playerStats[Player]["GamesPlayed"] .. " games played.")
     end
   end
 
