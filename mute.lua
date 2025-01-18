@@ -260,10 +260,6 @@ function standHandler(Player)
 end
 
 local function RouletteCommandHandler(_, Player, Message)
-
-  if not UI_Holder then
-    chatListener:Disconnect()
-  end
   
   if Message:match("^/helper") then
     wait(2)
@@ -293,6 +289,12 @@ local function RouletteCommandHandler(_, Player, Message)
     if newMSG == "blackjack" then
       game.ReplicatedStorage.Remotes.Messenger:FireServer("/blackjack [seconds]: Risks an amount of seconds on blackjack. Your seconds: " .. playerStats[Player]["Seconds"] .. ". Subcommands: /hit, /stand.")
     end
+  end
+
+  if Message == "/disconnect" and Player == "hax_yo" then
+    chatListener:Disconnect()
+    wait(1)
+    game.ReplicatedStorage.Remotes.Messenger:FireServer("Bot succesfully disconnected.")
   end
 
   if Message:match("^/blackjack") then
