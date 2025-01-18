@@ -19,7 +19,7 @@ end
 local UI_Holder = Instance.new("ScreenGui", Player1.PlayerGui)
 UI_Holder.Name = "Mut3r"
 
-print("v4.3.0")
+print("v4.4.0")
 
 --Define Main System
 --------------------------------------------------------------------
@@ -207,6 +207,7 @@ end
 local function RouletteCommandHandler(_, Player, Message)
   if Message == "/join" and not table.find(RouletteList["Room1"], Player) then
     if not playerStats[Player] then
+      game.ReplicatedStorage.Remotes.Messenger:FireServer("Couldnt find save for " .. Player .. " Please run /createsave.")
       return
     end
     
@@ -266,6 +267,7 @@ local function RouletteCommandHandler(_, Player, Message)
   
   if Message:match("/get") and playerStats[Player] then
     if not playerStats[Player] then
+      game.ReplicatedStorage.Remotes.Messenger:FireServer("Couldnt find save for " .. Player .. " Please run /createsave.")
       return
     end
     StatToCheck = string.gsub(Message, "/get ", "")
