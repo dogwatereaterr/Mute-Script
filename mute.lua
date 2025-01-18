@@ -207,6 +207,7 @@ end
 local function RouletteCommandHandler(_, Player, Message)
   
   if Message:match("/help") then
+    wait(2)
     newMSG = string.gsub(Message, "/help", "")
     newMSG = string.gsub(newMSG, " ", "")
     
