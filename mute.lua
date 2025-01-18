@@ -374,7 +374,7 @@ local function RouletteCommandHandler(_, Player, Message)
     end
   end
 
-  if Message == "/hit" and bjActive then
+  if Message == "/hit" and bjActive[Player] then
     wait(1)
     table.insert(Hands[Player]["Players"], math.random(1,11))
 
@@ -385,9 +385,10 @@ local function RouletteCommandHandler(_, Player, Message)
     local DealerHand = listHandler("strconv", Hands[Player]["Dealer"])
     local PlayerHand = listHandler("strconv", Hands[Player]["Players"])
     
-      
+    
     game.ReplicatedStorage.Remotes.Messenger:FireServer("Dealer's Hand: " .. DealerHand .. " || " .. Player .. [['s Hand: ]] .. PlayerHand)
 
+    wait(1)
     if PlayerSum == 21 then
       game.ReplicatedStorage.Remotes.Messenger:FireServer("Sigma. You won " .. Player .. ".")
       playerStats[Player]["Seconds"] += 2*betAmounts[Player]
@@ -405,7 +406,7 @@ local function RouletteCommandHandler(_, Player, Message)
     end
   end
 
-  if Message == "/stand" and bjActive then
+  if Message == "/stand" and bjActive[Player] then
     standHandler(Player)
   end
     
