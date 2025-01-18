@@ -328,7 +328,7 @@ local function RouletteCommandHandler(_, Player, Message)
     local PlayerHand = listHandler(strconv, Hands[Player]["Players"])
 
     game.ReplicatedStorage.Remotes.Messenger:FireServer([[
-Dealer's Hand: ]] .. DealerHand .. [[
+ Dealer's Hand: ]] .. DealerHand .. [[
 ]] .. Player .. [['s Hand: ]] .. PlayerHand)
 
     wait(1)
