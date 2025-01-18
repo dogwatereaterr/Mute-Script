@@ -277,6 +277,7 @@ local function RouletteCommandHandler(_, Player, Message)
     playerStats[Player] = playerSave
     local JSON = game:GetService("HttpService"):JSONEncode(playerStats)
     writefile("playerStats.JSON",JSON)
+    wait(3)
     game.ReplicatedStorage.Remotes.Messenger:FireServer("Created new save for: " .. Player)
   end
 end
@@ -480,6 +481,7 @@ local function PlayRoulette()
   writefile("data.JSON", JSON)
   Refresh()
   game.ReplicatedStorage.Remotes.Messenger:FireServer("/cmd mute " .. ID .. " " .. Length)
+  RouletteList = {}
 end
 
 Refresh()
