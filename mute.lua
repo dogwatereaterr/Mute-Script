@@ -206,7 +206,7 @@ end
 
 local function RouletteCommandHandler(_, Player, Message)
   if Message == "/join" and not table.find(RouletteList, Player) then
-    table.insert(RouletteList["0"], Player)
+    table.insert(RouletteList["Room1"], Player)
     
     RouletteScroll:ClearAllChildren()
     local ListLayout = Instance.new("UIListLayout")
@@ -450,7 +450,7 @@ end
 
 local function PlayRoulette()
   local totalIndex = 0
-  for i in pairs(RouletteList[0]) do
+  for i in pairs(RouletteList["Room1"]) do
     totalIndex +=1
   end
   
@@ -488,6 +488,7 @@ local function PlayRoulette()
   writefile("data.JSON", JSON)
   Refresh()
   game.ReplicatedStorage.Remotes.Messenger:FireServer("/cmd mute " .. ID .. " " .. Length)
+  RouletteList["Room1"] = {}
 end
 
 Refresh()
