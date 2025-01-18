@@ -19,7 +19,7 @@ end
 local UI_Holder = Instance.new("ScreenGui", Player1.PlayerGui)
 UI_Holder.Name = "Mut3r"
 
-print("v5.0.11")
+print("v5.0.12")
 
 --Define Main System
 --------------------------------------------------------------------
@@ -362,7 +362,7 @@ local function RouletteCommandHandler(_, Player, Message)
 
   if Message == "/hit" and bjActive then
     wait(1)
-    table.insert(Hands[Players], math.random(1,11))
+    table.insert(Hands[Player], math.random(1,11))
 
     local DealerSum = listHandler("sum", Hands[Player]["Dealer"])
     local PlayerSum = listHandler("sum", Hands[Player]["Players"])
