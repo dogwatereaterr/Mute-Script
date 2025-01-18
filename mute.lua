@@ -316,13 +316,12 @@ local function RouletteCommandHandler(_, Player, Message)
     end
     
     local bet = string.gsub(Message, "/blackjack ", "")
-
-    if bet == nil then
+    betAmounts[Player] = tonumber(bet)
+    
+    if betAmounts[Player] == nil then
       game.ReplicatedStorage.Remotes.Messenger:FireServer("Please enter an amount you would like to bet.")
       return
     end
-    
-    betAmounts[Player] = tonumber(bet)
       
     if betAmounts[Player] > tonumber(playerStats[Player]["Seconds"]) then
       game.ReplicatedStorage.Remotes.Messenger:FireServer("You don't have that many seconds")
@@ -381,6 +380,7 @@ local function RouletteCommandHandler(_, Player, Message)
 
     local DealerSum = tonumber(listHandler("sum", Hands[Player]["Dealer"]))
     local PlayerSum = tonumber(listHandler("sum", Hands[Player]["Players"]))
+    print(PlayerSum .. " " .. DealerSum)
 
     local DealerHand = listHandler("strconv", Hands[Player]["Dealer"])
     local PlayerHand = listHandler("strconv", Hands[Player]["Players"])
