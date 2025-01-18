@@ -4,9 +4,9 @@ local PlayerService = game:GetService("Players")
 local Data = game:GetService("HttpService"):JSONDecode(readfile("Data.JSON"))
 local playerStats = game:GetService("HttpService"):JSONDecode(readfile("playerStats.JSON"))
 local RouletteList = {
-  "0" = {},
-  "60" = {},
-  "300" = {}
+  Room1 = {},
+  Room2 = {},
+  Room3 = {}
   
 }
 
@@ -223,7 +223,7 @@ local function RouletteCommandHandler(_, Player, Message)
       
       local DataBox = Instance.new("TextLabel", Holder)
       DataBox.Size = UDim2.new(1, 0, 0.8, 0)
-      DataBox.TextScaled = true
+      DataBox.TextScaled = true   
       DataBox.RichText = true
       DataBox.BackgroundTransparency = 1
       DataBox.TextColor3 = Color3.fromRGB(150, 150, 150)
