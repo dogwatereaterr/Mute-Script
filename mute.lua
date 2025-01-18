@@ -232,7 +232,7 @@ local function RouletteCommandHandler(_, Player, Message)
     end
   end
   
-  if Message == "/leave" and table.find(RouletteList, Player) then
+  if Message == "/leave" and table.find(RouletteList["Room1"], Player) then
     local playerIndex = table.find(RouletteList["Room1"], Player)
     table.remove(RouletteList["Room1"], tonumber(playerIndex))
     
