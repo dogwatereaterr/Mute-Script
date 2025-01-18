@@ -388,7 +388,7 @@ local function RouletteCommandHandler(_, Player, Message)
     
     game.ReplicatedStorage.Remotes.Messenger:FireServer("Dealer's Hand: " .. DealerHand .. " || " .. Player .. [['s Hand: ]] .. PlayerHand)
 
-    wait(1)
+    wait(2)
     if PlayerSum == 21 then
       game.ReplicatedStorage.Remotes.Messenger:FireServer("Sigma. You won " .. Player .. ".")
       playerStats[Player]["Seconds"] += 2*betAmounts[Player]
