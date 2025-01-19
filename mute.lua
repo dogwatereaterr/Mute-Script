@@ -514,6 +514,7 @@ local function RouletteCommandHandler(_, Player, Message)
     writefile("playerStats.JSON",JSON)
     wait(2)
     game.ReplicatedStorage.Remotes.Messenger:FireServer("Reset seconds for: " .. Player)
+  end
 end
 
 local function Search()
