@@ -242,16 +242,17 @@ function standHandler(player)
 
     local JSON = game:GetService("HttpService"):JSONEncode(playerStats)
     writefile("playerStats.JSON",JSON)
-    bjActive = false
+    bjActive[player] = false
   end
 
   if DealerSum >= 17 and PlayerSum < DealerSum and DealerSum <= 21 then
     game.ReplicatedStorage.Remotes.Messenger:FireServer(player .. " lost blackjack...")
-    bjActive = false
+    bjActive[player] = false
   end
 
   if DealerSum >= 17 and PlayerSum == DealerSum then
     game.ReplicatedStorage.Remotes.Messenger:FireServer(player .. " didn't lose, but they didnt win.")
+    bjActive[player] = false
   end
 
   if DealerSum < 17 then
