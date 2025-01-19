@@ -19,7 +19,7 @@ end
 local UI_Holder = Instance.new("ScreenGui", Player1.PlayerGui)
 UI_Holder.Name = "Mut3r"
 
-print("v5.1.4")
+print("v5.1.5")
 
 --Define Main System
 --------------------------------------------------------------------
@@ -226,19 +226,19 @@ function listHandler(method, list)
   end
 end
 
-function standHandler(Player)
+function standHandler(player)
   wait(1)
-  print(Player)
+  print(player)
   print(game:GetService("HttpService"):JSONEncode(Hands))
-  local DealerSum = tonumber(listHandler("sum", Hands[Player]["Dealer"]))
-  local PlayerSum = tonumber(listHandler("sum", Hands[Player]["Players"]))
+  local DealerSum = tonumber(listHandler("sum", Hands[player]["Dealer"]))
+  local PlayerSum = tonumber(listHandler("sum", Hands[player]["Players"]))
 
-  local DealerHand = listHandler("strconv", Hands[Player]["Dealer"])
-  local PlayerHand = listHandler("strconv", Hands[Player]["Players"])
+  local DealerHand = listHandler("strconv", Hands[player]["Dealer"])
+  local PlayerHand = listHandler("strconv", Hands[player]["Players"])
 
   if DealerSum >= 17 and PlayerSum > DealerSum then
-    game.ReplicatedStorage.Remotes.Messenger:FireServer(Player .. " won blackjack!")
-    playerStats[Player]["Seconds"] += 2*betAmounts[Player]
+    game.ReplicatedStorage.Remotes.Messenger:FireServer(player .. " won blackjack!")
+    playerStats[player]["Seconds"] += 2*betAmounts[player]
 
     local JSON = game:GetService("HttpService"):JSONEncode(playerStats)
     writefile("playerStats.JSON",JSON)
@@ -246,16 +246,16 @@ function standHandler(Player)
   end
 
   if DealerSum >= 17 and PlayerSum < DealerSum then
-    game.ReplicatedStorage.Remotes.Messenger:FireServer(Player .. " lost blackjack...")
+    game.ReplicatedStorage.Remotes.Messenger:FireServer(player .. " lost blackjack...")
     bjActive = false
   end
 
   if DealerSum >= 17 and PlayerSum == DealerSum then
-    game.ReplicatedStorage.Remotes.Messenger:FireServer(Player .. " didn't lose, but they didnt win.")
+    game.ReplicatedStorage.Remotes.Messenger:FireServer(player .. " didn't lose, but they didnt win.")
   end
 
   if DealerSum < 17 then
-    table.insert(Hands[Player]["Dealer"], math.random(1,11))
+    table.insert(Hands[player]["Dealer"], math.random(1,11))
     standHandler()
   end
 end
@@ -345,6 +345,8 @@ local function RouletteCommandHandler(_, Player, Message)
 
     local DealerHand = listHandler("strconv", Hands[Player]["Dealer"])
     local PlayerHand = listHandler("strconv", Hands[Player]["Players"])
+
+    print(Player)
 
     game.ReplicatedStorage.Remotes.Messenger:FireServer("Dealer's Hand: " .. DealerHand .. " || " .. Player .. [['s Hand: ]] .. PlayerHand)
 
