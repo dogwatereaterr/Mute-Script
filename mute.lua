@@ -19,7 +19,7 @@ end
 local UI_Holder = Instance.new("ScreenGui", Player1.PlayerGui)
 UI_Holder.Name = "Mut3r"
 
-print("v5.1.9")
+print("v5.1.10")
 
 --Define Main System
 --------------------------------------------------------------------
@@ -252,6 +252,7 @@ function standHandler(player)
 
   if DealerSum >= 17 and PlayerSum == DealerSum then
     game.ReplicatedStorage.Remotes.Messenger:FireServer(player .. " didn't lose, but they didnt win.")
+    playerStats[player]["Seconds"] += betAmounts[player]
     bjActive[player] = false
   end
 
@@ -282,6 +283,7 @@ local function RouletteCommandHandler(_, Player, Message)
         /join: Joins the mute roulette lobby.
         /leave: Exits the mute roulette lobby.
         /get [stat]: Tells you how much [stat] you have
+        /reset seconds: Brings you back to 100 seconds
         /blackjack [seconds]: Risks anamount of seconds on blackjack.
         /helper (command): Tells you about commands
         (/helper with command specified must have parameters)]])
@@ -352,21 +354,7 @@ local function RouletteCommandHandler(_, Player, Message)
 
     wait(2)
 
-    if DealerSum == 21 and not PlayerSum == 21 then
-      game.ReplicatedStorage.Remotes.Messenger:FireServer("Dealer scored blackjack. Sorry " .. Player .. ".")
-      playerStats[Player]["Seconds"] -= betAmounts[Player]
-
-      local JSON = game:GetService("HttpService"):JSONEncode(playerStats)
-      writefile("playerStats.JSON",JSON)
-      bjActive[Player] = false
-    end
-
-    if DealerSum == 21 and PlayerSum == 21 then
-      game.ReplicatedStorage.Remotes.Messenger:FireServer("You both scored blackjack. At least you didn't lose, " .. Player .. ".")
-      bjActive[Player] = false
-    end
-
-    if not DealerSum == 21 and PlayerSum == 21 or DealerSum > 21 then
+    if PlayerSum == 21 then
       game.ReplicatedStorage.Remotes.Messenger:FireServer("You scored blackjack! Insane, " .. Player .. "!")
       playerStats[Player]["Seconds"] += 2.5*betAmounts[Player]
 
@@ -519,6 +507,13 @@ local function RouletteCommandHandler(_, Player, Message)
     wait(5)
     game.ReplicatedStorage.Remotes.Messenger:FireServer("Created new save for: " .. Player)
   end
+
+  if Message == "/reset seconds" then
+    playerStats[Player]["Seconds"] = 100
+    local JSON = game:GetService("HttpService"):JSONEncode(playerStats)
+    writefile("playerStats.JSON",JSON)
+    wait(2)
+    game.ReplicatedStorage.Remotes.Messenger:FireServer("Reset seconds for: " .. Player)
 end
 
 local function Search()
