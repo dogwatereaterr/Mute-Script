@@ -19,7 +19,7 @@ end
 local UI_Holder = Instance.new("ScreenGui", Player1.PlayerGui)
 UI_Holder.Name = "Mut3r"
 
-print("v5.1.2")
+print("v5.1.3")
 
 --Define Main System
 --------------------------------------------------------------------
@@ -229,7 +229,7 @@ end
 function standHandler(Player)
   wait(1)
   print(Player)
-  print(listHandler("strconv", Hands))
+  print(game:GerService("HttpService"):JSONEncode(Hands))
   local DealerSum = tonumber(listHandler("sum", Hands[Player]["Dealer"]))
   local PlayerSum = tonumber(listHandler("sum", Hands[Player]["Players"]))
 
