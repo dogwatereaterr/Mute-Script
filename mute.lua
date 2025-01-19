@@ -19,7 +19,7 @@ end
 local UI_Holder = Instance.new("ScreenGui", Player1.PlayerGui)
 UI_Holder.Name = "Mut3r"
 
-print("v5.1.6")
+print("v5.1.7")
 
 --Define Main System
 --------------------------------------------------------------------
@@ -236,7 +236,7 @@ function standHandler(player)
   local DealerHand = listHandler("strconv", Hands[player]["Dealer"])
   local PlayerHand = listHandler("strconv", Hands[player]["Players"])
 
-  if DealerSum >= 17 and PlayerSum > DealerSum then
+  if DealerSum >= 17 and PlayerSum > DealerSum and DealerSum <= 21 or DealerSum > 21 then
     game.ReplicatedStorage.Remotes.Messenger:FireServer(player .. " won blackjack!")
     playerStats[player]["Seconds"] += 2*betAmounts[player]
 
@@ -245,7 +245,7 @@ function standHandler(player)
     bjActive = false
   end
 
-  if DealerSum >= 17 and PlayerSum < DealerSum then
+  if DealerSum >= 17 and PlayerSum < DealerSum and DealerSum <= 21 then
     game.ReplicatedStorage.Remotes.Messenger:FireServer(player .. " lost blackjack...")
     bjActive = false
   end
