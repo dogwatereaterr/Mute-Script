@@ -230,7 +230,7 @@ end
 function standHandler(Player)
   wait(1)
   print(Player)
-  print(Hands[Player]["Dealer"])
+  print(listHandler("strconv", Hands[Player]["Dealer"]))
   local DealerSum = tonumber(listHandler("sum", Hands[Player]["Dealer"]))
   local PlayerSum = tonumber(listHandler("sum", Hands[Player]["Players"]))
 
