@@ -256,7 +256,7 @@ function standHandler(player)
 
   if DealerSum < 17 then
     table.insert(Hands[player]["Dealer"], math.random(1,11))
-    standHandler()
+    standHandler(player)
   end
 end
 
