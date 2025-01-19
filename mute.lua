@@ -209,7 +209,6 @@ function Refresh()
 end
 
 function listHandler(method, list)
-  print(method)
   if method == "sum" then
     local Sum = 0
     for i,v in pairs(list) do
@@ -230,7 +229,7 @@ end
 function standHandler(Player)
   wait(1)
   print(Player)
-  print(listHandler("strconv", Hands[Player]["Dealer"]))
+  print(listHandler("strconv", Hands))
   local DealerSum = tonumber(listHandler("sum", Hands[Player]["Dealer"]))
   local PlayerSum = tonumber(listHandler("sum", Hands[Player]["Players"]))
 
