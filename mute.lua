@@ -19,7 +19,7 @@ end
 local UI_Holder = Instance.new("ScreenGui", Player1.PlayerGui)
 UI_Holder.Name = "Mut3r"
 
-print("v5.1.1")
+print("v5.1.2")
 
 --Define Main System
 --------------------------------------------------------------------
@@ -222,7 +222,6 @@ function listHandler(method, list)
     local string = ""
     for i,v in pairs(list) do
       string = string .. v .. " "
-      print(string)
     end
     return string
   end
@@ -230,6 +229,8 @@ end
 
 function standHandler(Player)
   wait(1)
+  print(Player)
+  print(Hands[Player]["Dealer"])
   local DealerSum = tonumber(listHandler("sum", Hands[Player]["Dealer"]))
   local PlayerSum = tonumber(listHandler("sum", Hands[Player]["Players"]))
 
