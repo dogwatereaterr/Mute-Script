@@ -19,7 +19,7 @@ end
 local UI_Holder = Instance.new("ScreenGui", Player1.PlayerGui)
 UI_Holder.Name = "Mut3r"
 
-print("v5.1.7")
+print("v5.1.9")
 
 --Define Main System
 --------------------------------------------------------------------
@@ -299,6 +299,7 @@ local function RouletteCommandHandler(_, Player, Message)
 
   if Message == "/disconnect" and Player == "hax_yo" then
     Listening = false
+    wait(1)
     game.ReplicatedStorage.Remotes.Messenger:FireServer("Bot no longer listening.")
   end
 
