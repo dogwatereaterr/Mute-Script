@@ -270,4 +270,4 @@ function CommandHandler(Message)
   end
 end
 
-game.GetService("TextChatService").OnIncomingMessage = CommandHandler()
+game:GetService("TextChatService").OnIncomingMessage = CommandHandler()
