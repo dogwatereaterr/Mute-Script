@@ -144,6 +144,81 @@ async function waifucheck(type) {
 		const waifu = await neko.neko();
 		return waifu;
 	}
+
+	if (type == "smug") {
+		const waifu = await neko.smug();
+		return waifu;
+	}
+
+	if (type == "baka") {
+		const waifu = await neko.baka();
+		return waifu;
+	}
+	
+	if (type == "tickle") {
+		const waifu = await neko.tickle();
+		return waifu;
+	}
+	
+	if (type == "slap") {
+		const waifu = await neko.slap();
+		return waifu;
+	}
+
+	if (type == "pat") {
+		const waifu = await neko.neko();
+		return waifu;
+	}
+
+	if (type == "neko_GIF") {
+		const waifu = await neko.nekoGif();
+		return waifu;
+	}
+
+	if (type == "kiss") {
+		const waifu = await neko.kiss();
+		return waifu;
+	}
+
+	if (type == "hug") {
+		const waifu = await neko.hug();
+		return waifu;
+	}
+
+	if (type == "feed") {
+		const waifu = await neko.feed();
+		return waifu;
+	}
+
+	if (type == "cuddle") {
+		const waifu = await neko.cuddle();
+		return waifu;
+	}
+
+	if (type == "kemonomimi") {
+		const waifu = await neko.kemonomimi();
+		return waifu;
+	}
+
+	if (type == "holo") {
+		const waifu = await neko.holo();
+		return waifu;
+	}
+
+	if (type == "woof") {
+		const waifu = await neko.woof();
+		return waifu;
+	}
+
+	if (type == "wallpaper") {
+		const waifu = await neko.wallpaper();
+		return waifu;
+	}
+
+	if (type == "genetic_engineered_cat_girl_tf") {
+		const waifu = await neko.gecg();
+		return waifu;
+	}
 }
 
 client.login(token);
