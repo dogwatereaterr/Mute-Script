@@ -46,9 +46,9 @@ client.on('interactionCreate', async (interaction) => {
 		};
 		const embed = new EmbedBuilder()
 			.setTitle(`Shipped ${user.username} and ${user2.username}!`)
-		  .setDescription(`**<@${user.id}>** and **<@${user2.id}>** are **${probability}%** compatible!`)
+			.setDescription(`**<@${user.id}>** and **<@${user2.id}>** are **${probability}%** compatible!`)
 			.setColor(0x9A2389);
-		
+
 		interaction.reply({ embeds: [embed] });
 	};
 
@@ -62,14 +62,14 @@ client.on('interactionCreate', async (interaction) => {
 				{ name: '/help', value: 'Shows a list of commands' },
 				{ name: '/anime', value: 'Generates pictures of anime girls' },
 			);
-		
+
 		interaction.reply({embeds: [embed]})
 	};
 
 	if (interaction.commandName === 'anime') {
 		const type = interaction.options.get('type').value;
 		let waifu;
-		
+
 		const pin = new ButtonBuilder()
 		.setCustomId("pin")
 		.setEmoji("📌")
@@ -98,37 +98,51 @@ client.on('interactionCreate', async (interaction) => {
 		animegirl.then(async function(result) {
 			await interaction.reply({content: result.url, components: [row], fetchReply: true})
 			const reply = await interaction.fetchReply();
+			createCollector(reply)
 		});
 	};
+	
+	if (interaction.commandName === 'femboy') {
+	  const search = interaction.options.get('search').value;
+	  
+    const res = await axios.get(`https://femboyfinder.firestreaker2.gq/api/${search}`);
+    const embed = new EmbedBuilder()
+      .addFields(
+        {value: res.data.url},
+        {name: "Tags", value: res.data.tags}
+      );
+      
+    interaction.reply({embeds: [embed]})
+	};
 });
-
-const collector = reply.createMessageComponentCollector({componentType: ComponentType.Button, time: 150000000000000000000000});
-
-collector.on('collect', async i => {
-	if (i.customId === "pin") {
-		reply.pin()
-		await i.reply(`Pinned by <@${i.user.id}>`)
-	}
-});
-
-collector.on('collect', async i => {
-	if (i.customId === "child") {
-		await i.reply(`<@${i.user.id}> thinks it's a child`)
-	}
-});
-
-collector.on('collect', async i => {
-	if (i.customId === "Pass") {
-		await i.reply(`Passed by <@${i.user.id}>`)
-	}
-});
-
-collector.on('collect', async i => {
-	if (i.customId === "smash") {
-		await i.reply(`<@${i.user.id}> would smash`)
-	}
-});
-
+async function createCollector(reply) {
+  const collector = reply.createMessageComponentCollector({componentType: ComponentType.Button, time: 15000});
+  
+  collector.on('collect', async i => {
+  	if (i.customId === "pin") {
+  		reply.pin()
+  		await i.reply(`Pinned by <@${i.user.id}>`)
+  	}
+  });
+  
+  collector.on('collect', async i => {
+  	if (i.customId === "child") {
+  		await i.reply(`<@${i.user.id}> thinks it's a child`)
+  	}
+  });
+  
+  collector.on('collect', async i => {
+  	if (i.customId === "pass") {
+  		await i.reply(`Passed by <@${i.user.id}>`)
+  	}
+  });
+  
+  collector.on('collect', async i => {
+  	if (i.customId === "smash") {
+  		await i.reply(`<@${i.user.id}> would smash`)
+  	}
+  });
+}
 async function waifucheck(type) {
 	if (type == "waifu") {
 		const waifu = await neko.waifu();
@@ -150,16 +164,11 @@ async function waifucheck(type) {
 		return waifu;
 	}
 
-	if (type == "baka") {
-		const waifu = await neko.baka();
-		return waifu;
-	}
-	
 	if (type == "tickle") {
 		const waifu = await neko.tickle();
 		return waifu;
 	}
-	
+
 	if (type == "slap") {
 		const waifu = await neko.slap();
 		return waifu;
@@ -195,16 +204,6 @@ async function waifucheck(type) {
 		return waifu;
 	}
 
-	if (type == "kemonomimi") {
-		const waifu = await neko.kemonomimi();
-		return waifu;
-	}
-
-	if (type == "holo") {
-		const waifu = await neko.holo();
-		return waifu;
-	}
-
 	if (type == "woof") {
 		const waifu = await neko.woof();
 		return waifu;
@@ -221,4 +220,4 @@ async function waifucheck(type) {
 	}
 }
 
-client.login(token);
+client.login("OTE5ODQ1Mzc0MjY3NjMzNjg0.GEpivY.NzmWZk3dnmIWstmg6wfF3aSlUiGCvHCxuUm1mE");
