@@ -103,17 +103,21 @@ client.on('interactionCreate', async (interaction) => {
 	};
 	
 	if (interaction.commandName === 'femboy') {
-	  const search = interaction.options.get('search').value;
-	  
-	  const res = await axios.get(`https://femboyfinder.firestreaker2.gq/api/${search}`);
-	  const embed = new EmbedBuilder()
-    .addFields(
-	 		{value: res.data.url},
-	    {name: "Tags", value: res.data.tags}
-	 	);
-	      
-	  interaction.reply({embeds: [embed]})
-	};
+	        const search = interaction.options.get('search').value;
+	
+	        const res = await axios.get(`https://femboyfinder.firestreaker2.gq/api/${search}`);
+	        const embed = new EmbedBuilder()
+	            .addFields({
+	                value: res.data.url
+	            }, {
+	                name: "Tags",
+	                value: res.data.tags
+	            });
+	
+	        interaction.reply({
+	            embeds: [embed]
+	        })
+   	 };
 });
 async function createCollector(reply) {
   const collector = reply.createMessageComponentCollector({componentType: ComponentType.Button, time: 15000});
